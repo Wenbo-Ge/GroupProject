@@ -20,7 +20,7 @@ public class ActivityLaunchSoccer extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_soccer_match_login);
+        setContentView(R.layout.activity_launch_soccer);
 
         goToLoading = new Intent(ActivityLaunchSoccer.this, Loading.class);
 
