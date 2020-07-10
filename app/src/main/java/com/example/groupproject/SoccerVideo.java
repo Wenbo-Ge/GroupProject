@@ -1,6 +1,6 @@
-package com.example.groupproject.soccer;
+package com.example.groupproject;
 
-public class Video {
+public class SoccerVideo {
     protected String country;
     protected String date;
     protected String side1;
@@ -11,7 +11,7 @@ public class Video {
 
 
 
-    public Video (String country, String date, String side1, String side2, String embed, boolean liked, long id) {
+    public SoccerVideo(String country, String date, String side1, String side2, String embed, boolean liked, long id) {
         this.country = country;
         this.date = date;
         this.side1 = side1;

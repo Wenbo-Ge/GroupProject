@@ -1,4 +1,4 @@
-package com.example.groupproject.soccer;
+package com.example.groupproject;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,9 +7,7 @@ import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.groupproject.R;
-
-public class Loading extends AppCompatActivity {
+public class SoccerLoading extends AppCompatActivity {
     Intent goToVideo;
     ProgressBar pbar;
     int a = 0;
@@ -18,9 +16,9 @@ public class Loading extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_loading_page);
+        setContentView(R.layout.activity_soccer_loading_page);
 
-        goToVideo = new Intent(Loading.this, VideoActivity.class);
+        goToVideo = new Intent(SoccerLoading.this, SoccerVideoActivity.class);
         pbar = findViewById(R.id.p_Bar);
 
 

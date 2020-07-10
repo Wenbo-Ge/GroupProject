@@ -1,4 +1,4 @@
-package com.example.groupproject.soccer;
+package com.example.groupproject;
 
 import android.content.ContentValues;
 import android.content.Intent;
@@ -16,23 +16,20 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.groupproject.ActivityLaunchSoccer;
-import com.example.groupproject.R;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class VideoActivity extends AppCompatActivity {
+public class SoccerVideoActivity extends AppCompatActivity {
     MyListAdapter myAdapter;
     SQLiteDatabase db;
     ListView myList;
-    MyOpener dbOpener;
+    SoccerMyOpener dbOpener;
     Cursor results;
     Button refreshButton;
     Button watchButton;
     Button savedButton;
 
-    private ArrayList<Video> elements = new ArrayList<>( Arrays.asList());
+    private ArrayList<SoccerVideo> elements = new ArrayList<>( Arrays.asList());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,18 +53,18 @@ public class VideoActivity extends AppCompatActivity {
         refreshButton.setOnClickListener( click -> {
             ContentValues newRowValues = new ContentValues();
 
-            newRowValues.put(MyOpener.COL_COUNTRY, "ITALY: Serie A");
-            newRowValues.put(MyOpener.COL_DATE, "2020-07-09T17:00");
-            newRowValues.put(MyOpener.COL_SIDE1, "AC Milan");
-            newRowValues.put(MyOpener.COL_SIDE2, "Juventus");
-            newRowValues.put(MyOpener.COL_EMBED, "https:\\/\\/www.scorebat.com\\/ac-milan-vs-juventus-live-stream\\/");
-            newRowValues.put(MyOpener.COL_LIKE, 0);
+            newRowValues.put(SoccerMyOpener.COL_COUNTRY, "ITALY: Serie A");
+            newRowValues.put(SoccerMyOpener.COL_DATE, "2020-07-09T17:00");
+            newRowValues.put(SoccerMyOpener.COL_SIDE1, "AC Milan");
+            newRowValues.put(SoccerMyOpener.COL_SIDE2, "Juventus");
+            newRowValues.put(SoccerMyOpener.COL_EMBED, "https:\\/\\/www.scorebat.com\\/ac-milan-vs-juventus-live-stream\\/");
+            newRowValues.put(SoccerMyOpener.COL_LIKE, 0);
 
 
-            long newId = db.insert(MyOpener.TABLE_NAME, null, newRowValues);
-            Video video = new Video("ITALY: Serie A", "2020-07-09T17:00", "AC Milan", "Juventus", "https:\\/\\/www.scorebat.com\\/ac-milan-vs-juventus-live-stream\\/", false, newId);
+            long newId = db.insert(SoccerMyOpener.TABLE_NAME, null, newRowValues);
+            SoccerVideo soccerVideo = new SoccerVideo("ITALY: Serie A", "2020-07-09T17:00", "AC Milan", "Juventus", "https:\\/\\/www.scorebat.com\\/ac-milan-vs-juventus-live-stream\\/", false, newId);
 
-            elements.add(video);
+            elements.add(soccerVideo);
             myAdapter.notifyDataSetChanged();
         });
 
@@ -121,7 +118,7 @@ public class VideoActivity extends AppCompatActivity {
     @Override
     public void onBackPressed () {
         super.onBackPressed();
-        startActivity(new Intent(VideoActivity.this, ActivityLaunchSoccer.class));
+        startActivity(new Intent(SoccerVideoActivity.this, ActivityLaunchSoccer.class));
         finish();
     }
 
@@ -130,30 +127,30 @@ public class VideoActivity extends AppCompatActivity {
 
         public int getCount() { return elements.size();}
 
-        public Video getItem(int position) { return elements.get(position); }
+        public SoccerVideo getItem(int position) { return elements.get(position); }
 
         public long getItemId(int position) { return getItem(position).getId(); }
 
         public View getView(int position, View convertView, ViewGroup parent) {
             LayoutInflater inflater = getLayoutInflater();
-            Video video = getItem(position);
+            SoccerVideo soccerVideo = getItem(position);
             TextView countryView;
             TextView dateView;
             TextView side1View;
             TextView side2View;
 
 
-            convertView = inflater.inflate(R.layout.activity_row_layout, parent, false);
+            convertView = inflater.inflate(R.layout.activity_soccer_row_layout, parent, false);
 
             countryView = convertView.findViewById(R.id.country);
             dateView = convertView.findViewById(R.id.date);
             side1View = convertView.findViewById(R.id.textViewA);
             side2View = convertView.findViewById(R.id.textViewB);
 
-            countryView.setText(video.getCountry());
-            dateView.setText(video.getDate());
-            side1View.setText(video.getSide1());
-            side2View.setText(video.getSide2());
+            countryView.setText(soccerVideo.getCountry());
+            dateView.setText(soccerVideo.getDate());
+            side1View.setText(soccerVideo.getSide1());
+            side2View.setText(soccerVideo.getSide2());
             return convertView;
         }
     }
@@ -161,22 +158,22 @@ public class VideoActivity extends AppCompatActivity {
     private void loadDataFromDatabase()
     {
 
-        dbOpener = new MyOpener(this);
+        dbOpener = new SoccerMyOpener(this);
         db = dbOpener.getWritableDatabase();
 
 
-        String [] columns = {MyOpener.COL_ID, MyOpener.COL_COUNTRY, MyOpener.COL_DATE, MyOpener.COL_SIDE1, MyOpener.COL_SIDE2, MyOpener.COL_EMBED};
+        String [] columns = {SoccerMyOpener.COL_ID, SoccerMyOpener.COL_COUNTRY, SoccerMyOpener.COL_DATE, SoccerMyOpener.COL_SIDE1, SoccerMyOpener.COL_SIDE2, SoccerMyOpener.COL_EMBED};
 
-        results = db.query(false, MyOpener.TABLE_NAME, columns, null, null, null, null, null, null);
+        results = db.query(false, SoccerMyOpener.TABLE_NAME, columns, null, null, null, null, null, null);
 
 
-        int countryColumnIndex = results.getColumnIndex(MyOpener.COL_COUNTRY);
-        int dateColumnIndex = results.getColumnIndex(MyOpener.COL_DATE);
-        int side1ColumnIndex = results.getColumnIndex(MyOpener.COL_SIDE1);
-        int side2ColumnIndex = results.getColumnIndex(MyOpener.COL_SIDE2);
-        int embedColumnIndex = results.getColumnIndex(MyOpener.COL_EMBED);
-        int likeColumnIndex = results.getColumnIndex(MyOpener.COL_LIKE);
-        int idColIndex = results.getColumnIndex(MyOpener.COL_ID);
+        int countryColumnIndex = results.getColumnIndex(SoccerMyOpener.COL_COUNTRY);
+        int dateColumnIndex = results.getColumnIndex(SoccerMyOpener.COL_DATE);
+        int side1ColumnIndex = results.getColumnIndex(SoccerMyOpener.COL_SIDE1);
+        int side2ColumnIndex = results.getColumnIndex(SoccerMyOpener.COL_SIDE2);
+        int embedColumnIndex = results.getColumnIndex(SoccerMyOpener.COL_EMBED);
+        int likeColumnIndex = results.getColumnIndex(SoccerMyOpener.COL_LIKE);
+        int idColIndex = results.getColumnIndex(SoccerMyOpener.COL_ID);
 
 
         while(results.moveToNext())
@@ -190,16 +187,16 @@ public class VideoActivity extends AppCompatActivity {
             long id = results.getLong(idColIndex);
 
 
-            elements.add(new Video(country, date, side1, side2, embed, liked, id));
+            elements.add(new SoccerVideo(country, date, side1, side2, embed, liked, id));
 //            printCursor(results,db.getVersion());
 
         }
 
     }
 
-    protected void deleteVideo(Video m)
+    protected void deleteVideo(SoccerVideo m)
     {
-        db.delete(MyOpener.TABLE_NAME, MyOpener.COL_ID + "= ?", new String[] {Long.toString(m.getId())});
+        db.delete(SoccerMyOpener.TABLE_NAME, SoccerMyOpener.COL_ID + "= ?", new String[] {Long.toString(m.getId())});
     }
 
 //    protected void printCursor (Cursor c, int version) {

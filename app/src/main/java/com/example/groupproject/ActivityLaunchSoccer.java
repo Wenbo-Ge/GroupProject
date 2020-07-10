@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.groupproject.soccer.Loading;
 import com.google.android.material.snackbar.Snackbar;
 
 public class ActivityLaunchSoccer extends AppCompatActivity {
@@ -23,7 +22,7 @@ public class ActivityLaunchSoccer extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch_soccer);
 
-        goToLoading = new Intent(ActivityLaunchSoccer.this, Loading.class);
+        goToLoading = new Intent(ActivityLaunchSoccer.this, SoccerLoading.class);
 
         loginButton = findViewById(R.id.button3);
         passField = findViewById(R.id.textView6);
