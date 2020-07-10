@@ -1,4 +1,4 @@
-package com.example.groupproject;
+package com.example.groupproject.soccer;
 
 import android.content.ContentValues;
 import android.content.Intent;
@@ -15,6 +15,9 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.groupproject.ActivityLaunchSoccer;
+import com.example.groupproject.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;

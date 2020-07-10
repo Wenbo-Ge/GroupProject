@@ -1,4 +1,4 @@
-package com.example.groupproject;
+package com.example.groupproject.soccer;
 
 public class Video {
     protected String country;

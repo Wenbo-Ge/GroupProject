@@ -1,4 +1,4 @@
-package com.example.groupproject;
+package com.example.groupproject.soccer;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

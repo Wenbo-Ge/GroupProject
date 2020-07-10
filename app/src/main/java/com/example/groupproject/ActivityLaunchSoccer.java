@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.groupproject.soccer.Loading;
 import com.google.android.material.snackbar.Snackbar;
 
 public class ActivityLaunchSoccer extends AppCompatActivity {
