@@ -7,4 +7,5 @@
     <string name="buttonLSSearch">Search</string>
     <string name="textViewLSHeading">Lyrics Search</string>
     <string name="textEditLSTitle">e.g. Roxanne</string>
+    <string name="textViewLSFavorite">Favorites</string>
 </resources>
