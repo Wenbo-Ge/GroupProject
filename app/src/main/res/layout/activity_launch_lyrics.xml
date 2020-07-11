@@ -1,9 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ActivityLaunchLyrics">
+    android:columnCount="3"
+    android:rowCount="4"
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="53dp"
+        android:text="@string/textViewLSHeading"
+        android:gravity="center"
+        android:layout_columnSpan="3"
+        android:textSize="18sp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:textAlignment="center"
+        android:layout_height="wrap_content"
+        android:text="@string/textViewLSArtist"/>
+
+    <EditText
+        android:id="@+id/editTextLSArtist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="fill_horizontal"
+        android:inputType="textEmailAddress"
+        android:layout_columnSpan="2"
+        android:hint="@string/textEditLSArtist"/>
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_gravity="fill_horizontal"
+        android:gravity="center"
+        android:text="@string/textViewLSTitle"/>
+
+    <EditText
+        android:id="@+id/editTextLSTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="fill_horizontal"
+        android:inputType="textEmailAddress"
+        android:layout_columnSpan="2"
+        android:hint="@string/textEditLSTitle"/>
+
+
+    <Button
+        android:id="@+id/buttonLSSearch"
+        android:layout_width="wrap_content"
+        android:layout_gravity="fill_horizontal"
+        android:layout_height="wrap_content"
+        android:layout_columnSpan="3"
+        android:text="@string/buttonLSSearch" />
+
+</GridLayout>
+
+
+
+
+
+
