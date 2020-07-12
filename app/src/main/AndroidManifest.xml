@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ActivityLaunchSinger"></activity>
+        <activity android:name=".LyricsResultActivity"></activity>
+        <activity android:name=".ActivityLaunchSinger" />
         <activity android:name=".ActivityLaunchLyrics" />
         <activity android:name=".ActivityLaunchSoccer" />
         <activity android:name=".ActivityLaunchGeo" />

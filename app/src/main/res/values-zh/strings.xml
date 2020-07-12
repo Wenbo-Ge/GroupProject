@@ -8,4 +8,12 @@
     <string name="textViewLSHeading">Lyrics Search</string>
     <string name="textEditLSTitle">e.g. Roxanne</string>
     <string name="textViewLSFavorite">Favorites</string>
+    <string name="buttonLSWebSearch">Google</string>
+    <string name="alertTitleLSFavList">Do you want to remove this song from the favorite list?</string>
+    <string name="buttonLSAlertYes">Yes</string>
+    <string name="buttonLSAlertNo">No</string>
+    <string name="toastLSInvalidInput">Please fill in both artist/band name and song title</string>
+    <string name="snackbarLSFavoriteOn">Added to the favorite list</string>
+    <string name="snackbarLSFavoriteOff">Removed from the favorite list</string>
+    <string name="snackbarLSFavoriteUndo">Undo</string>
 </resources>
