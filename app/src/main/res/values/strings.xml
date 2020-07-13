@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">GroupProject</string>
+    <string name="artistName">Artist or Group\'s Name</string>
+    <string name="hintMessage">Please Enter an Artist or Group\'s Name</string>
+    <string name="searchSinger">Search</string>
+    <string name="loadHint">Loading....</string>
+    <string name="saveButton">Save</string>
+    <string name="favourButton">Your Favourites</string>
+    <string name="title">Title:</string>
+    <string name="duration">Duration:</string>
+    <string name="albumName">AlbumName</string>
+    <string name="albumCover">AlbumCover</string>
+    <string name="saveAlbumDetails">Save Details</string>
 </resources>
