@@ -2,18 +2,18 @@
 <resources>
     <string name="app_name">小组项目</string>
     <string name="textViewLSTitle">歌词搜索</string>
-    <string name="textViewLSArtist">Artist</string>
-    <string name="textEditLSArtist">e.g. Police</string>
-    <string name="buttonLSSearch">Search</string>
-    <string name="textViewLSHeading">Lyrics Search</string>
-    <string name="textEditLSTitle">e.g. Roxanne</string>
-    <string name="textViewLSFavorite">Favorites</string>
+    <string name="textViewLSArtist">艺术家</string>
+    <string name="textEditLSArtist">比如Police</string>
+    <string name="buttonLSSearch">搜索</string>
+    <string name="textViewLSHeading">歌词搜索</string>
+    <string name="textEditLSTitle">比如Roxanne</string>
+    <string name="textViewLSFavorite">收藏</string>
     <string name="buttonLSWebSearch">Google</string>
-    <string name="alertTitleLSFavList">Do you want to remove this song from the favorite list?</string>
-    <string name="buttonLSAlertYes">Yes</string>
-    <string name="buttonLSAlertNo">No</string>
-    <string name="toastLSInvalidInput">Please fill in both artist/band name and song title</string>
-    <string name="snackbarLSFavoriteOn">Added to the favorite list</string>
-    <string name="snackbarLSFavoriteOff">Removed from the favorite list</string>
-    <string name="snackbarLSFavoriteUndo">Undo</string>
+    <string name="alertTitleLSFavList">取消收藏？</string>
+    <string name="buttonLSAlertYes">是</string>
+    <string name="buttonLSAlertNo">否</string>
+    <string name="toastLSInvalidInput">请输入完整信息</string>
+    <string name="snackbarLSFavoriteOn">已收藏</string>
+    <string name="snackbarLSFavoriteOff">已取消收藏</string>
+    <string name="snackbarLSFavoriteUndo">还原</string>
 </resources>

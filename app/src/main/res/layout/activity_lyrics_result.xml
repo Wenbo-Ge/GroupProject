@@ -11,14 +11,16 @@
         android:id="@+id/textViewLSTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
+        android:layout_gravity="center"
+        android:textSize="24dp"
         />
 
     <TextView
         android:id="@+id/textViewLSArtist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="14sp"
+        android:layout_gravity="center"
+        android:textSize="18dp"
         />
 
     <ToggleButton
@@ -27,20 +29,32 @@
         android:id="@+id/toggleButtonLSFavorite"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
+        android:layout_gravity="center"
         android:textOn=""
         android:textOff=""/>
 
-    <TextView
-        android:id="@+id/textViewLSLyrics"
-        android:layout_width="wrap_content"
+    <ScrollView
+        android:id="@+id/SCROLLER_ID"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.1"
-        />
+        android:scrollbars="vertical"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <TextView
+            android:id="@+id/textViewLSLyrics"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_gravity="center"
+            android:textAlignment="center" />
+    </ScrollView>
 
     <Button
         android:id="@+id/buttonLSWebSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:text="@string/buttonLSWebSearch" />
 
 </LinearLayout>
