@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.groupproject">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,6 +14,8 @@
         <activity android:name=".LyricsResultActivity"></activity>
         <activity android:name=".ActivityLaunchSinger" />
         <activity android:name=".ActivityLaunchLyrics" />
+        <activity android:name=".SoccerVideoActivity"></activity>
+        <activity android:name=".SoccerLoading"></activity>
         <activity android:name=".ActivityLaunchSoccer" />
         <activity android:name=".ActivityLaunchGeo" />
         <activity android:name=".MainActivity">

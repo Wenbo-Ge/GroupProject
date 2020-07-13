@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">GroupProject</string>
+    <string name="Password">Password</string>
+    <string name="InputPassword">Please input password</string>
+    <string name="login">Login</string>
+    <string name="Watch">Watch Highlights</string>
+    <string name="Save">Save</string>
+
     <string name="textViewLSTitle">Song Title</string>
     <string name="textViewLSArtist">Artist/Band Name</string>
     <string name="textEditLSArtist">e.g. Police</string>
