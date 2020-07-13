@@ -23,6 +23,7 @@ public class ActivityLaunchSoccer extends AppCompatActivity {
         setContentView(R.layout.activity_launch_soccer);
 
         //launch loading page
+
         goToLoading = new Intent(ActivityLaunchSoccer.this, SoccerLoading.class);
 
         loginButton = findViewById(R.id.button3);
