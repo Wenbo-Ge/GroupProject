@@ -14,7 +14,7 @@ public class SoccerMyOpener extends SQLiteOpenHelper {
     public final static String COL_SIDE1 = "SIDE1";
     public final static String COL_SIDE2 = "SIDE2";
     public final static String COL_EMBED = "EMBED";
-    public final static String COL_LIKE = "LIKE";
+    public final static String COL_TITLE = "TITLE";
     public final static String COL_ID = "_id";
 
     public SoccerMyOpener(Context ctx)
@@ -34,7 +34,7 @@ public class SoccerMyOpener extends SQLiteOpenHelper {
                 "SIDE1 text, " +
                 "SIDE2 text, " +
                 "EMBED, text" +
-                "LIKE, int);");
+                "TITLE, text);");
     }
 
 

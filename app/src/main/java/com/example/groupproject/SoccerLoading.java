@@ -18,6 +18,7 @@ public class SoccerLoading extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_soccer_loading_page);
 
+        // launch video page
         goToVideo = new Intent(SoccerLoading.this, SoccerVideoActivity.class);
         pbar = findViewById(R.id.p_Bar);
 
@@ -27,7 +28,7 @@ public class SoccerLoading extends AppCompatActivity {
                 new Thread(new Runnable() {
                     public void run() {
                         while (a < 100) {
-                            a += 1;
+                            a += 10;
                             handler.post(new Runnable() {
                                 public void run() {
                                     pbar.setProgress(a);
