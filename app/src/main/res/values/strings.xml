@@ -1,5 +1,4 @@
 <resources>
-    <!-- Main Page -->
     <string name="app_name">GroupProject</string>
     <string name="Password">Password</string>
     <string name="InputPassword">Please input password</string>
@@ -7,15 +6,6 @@
     <string name="Watch">Watch Highlights</string>
     <string name="Save">Save</string>
 
-    <!-- Geo Data Source -->
-    <string name="geoWelcome">Welcome to Geo Data Source</string>
-    <string name="geoLatLong">Enter latitude and longitude to find out the nearby cities:</string>
-    <string name="geoLat">Type latitude here</string>
-    <string name="geoLong">Type longitude here</string>
-    <string name="geoSearch">SEARCH</string>
-    <string name="geoFav">SHOW FAVORITE CITIES</string>
-
-    <!-- Song Lyrics Search -->
     <string name="textViewLSTitle">Song Title</string>
     <string name="textViewLSArtist">Artist/Band Name</string>
     <string name="textEditLSArtist">e.g. Police</string>
@@ -31,13 +21,4 @@
     <string name="alertTitleLSFavList">Do you want to remove this song from the favorite list?</string>
     <string name="buttonLSAlertYes">Yes</string>
     <string name="buttonLSAlertNo">No</string>
-
-
-    <!-- Deezer song search api -->
-
-
-
-
-
-
 </resources>

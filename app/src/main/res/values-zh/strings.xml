@@ -16,15 +16,4 @@
     <string name="snackbarLSFavoriteOn">Added to the favorite list</string>
     <string name="snackbarLSFavoriteOff">Removed from the favorite list</string>
     <string name="snackbarLSFavoriteUndo">Undo</string>
-
-    <!-- Geo Data Source -->
-    <string name="geoWelcome">欢迎来到地理数据查阅</string>
-    <string name="geoLatLong">输入经度和纬度来查找附近城市</string>
-    <string name="geoLat">输入纬度</string>
-    <string name="geoLong">输入经度</string>
-    <string name="geoSearch">查找</string>
-    <string name="geoFav">显示心仪城市</string>
-
-
-
 </resources>
