@@ -1,9 +1,11 @@
 package com.example.groupproject;
 
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,6 +21,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -31,12 +35,10 @@ import java.util.Arrays;
 
 public class SoccerVideoActivity extends AppCompatActivity {
     MyListAdapter myAdapter;
+    SoccerMyOpener dbOpener;
     SQLiteDatabase db;
     ListView myList;
-    SoccerMyOpener dbOpener;
-    Cursor results;
-    Button watchButton;
-    Switch savedSwitch;
+
     Button yourMatchButton;
 
     private ArrayList<SoccerVideo> elements = new ArrayList<>( Arrays.asList());
@@ -49,11 +51,10 @@ public class SoccerVideoActivity extends AppCompatActivity {
         matchQuery req = new matchQuery();
         req.execute();
 
+        dbOpener = new SoccerMyOpener(this);
+        db = dbOpener.getWritableDatabase();
+
         myList =  findViewById(R.id.theListView);
-
-//        loadDataFromDatabase();
-
-
 
         myList.setAdapter( myAdapter = new MyListAdapter() );
 
@@ -63,35 +64,13 @@ public class SoccerVideoActivity extends AppCompatActivity {
 
         myAdapter.notifyDataSetChanged();
 
-//        refreshButton = findViewById(R.id.button2);
-
-//        savedSwitch = findViewById(R.id.save);
-
-//        watchButton = findViewById(R.id.watch);
-
-        yourMatchButton = findViewById(R.id.button3);
+        yourMatchButton = findViewById(R.id.matches);
 
 
+        yourMatchButton.setOnClickListener(bt -> {
+            startActivity(new Intent(SoccerVideoActivity.this, SoccerSavedMatches.class));
+        });
 
-//        savedSwitch.setOnCheckedChangeListener((cb, isChecked) -> {
-//            ContentValues newRowValues = new ContentValues();
-//
-//            newRowValues.put(SoccerMyOpener.COL_COUNTRY, "ITALY: Serie A");
-//            newRowValues.put(SoccerMyOpener.COL_DATE, "2020-07-09T17:00");
-//            newRowValues.put(SoccerMyOpener.COL_SIDE1, "AC Milan");
-//            newRowValues.put(SoccerMyOpener.COL_SIDE2, "Juventus");
-//            newRowValues.put(SoccerMyOpener.COL_EMBED, "https:\\/\\/www.scorebat.com\\/ac-milan-vs-juventus-live-stream\\/");
-//
-//
-//            long newId = db.insert(SoccerMyOpener.TABLE_NAME, null, newRowValues);
-//            SoccerVideo soccerVideo = new SoccerVideo("ITALY: Serie A", "2020-07-09T17:00", "AC Milan", "Juventus", "https:\\/\\/www.scorebat.com\\/ac-milan-vs-juventus-live-stream\\/", newId);
-//
-//            elements.add(soccerVideo);
-//            myAdapter.notifyDataSetChanged();
-//        });
-
-//        savedButton.setOnClickListener( click -> {
-//        });
 
 //        watchButton.setOnClickListener( click -> {
 //
@@ -99,10 +78,10 @@ public class SoccerVideoActivity extends AppCompatActivity {
 
 
         myList.setOnItemClickListener( (parent, view, pos, id) -> {
-
             showDetail( pos );
-
         });
+
+
 
 
     }
@@ -126,15 +105,29 @@ public class SoccerVideoActivity extends AppCompatActivity {
         side1View.setText(selectedMatch.getSide1());
         side2View.setText(selectedMatch.getSide2());
 
+
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Match Details")
                 .setView(detail_view) //add the 3 edit texts showing the contact information
-                .setNegativeButton("Delete", (click, b) -> {
+                .setNegativeButton("dismiss", (click, b) -> { })
+                .setPositiveButton("save", (click, b) -> {
+                    ContentValues newRowValues = new ContentValues();
 
-                    elements.remove(pos); //remove the contact from contact list
-                    myAdapter.notifyDataSetChanged(); //there is one less item so update the list
+                    newRowValues.put(SoccerMyOpener.COL_COUNTRY, "ITALY: Serie A");
+                    newRowValues.put(SoccerMyOpener.COL_TITLE, "Napoli - AC Milian");
+                    newRowValues.put(SoccerMyOpener.COL_DATE, "2020-07-09T17:00");
+                    newRowValues.put(SoccerMyOpener.COL_SIDE1, "AC Milan");
+                    newRowValues.put(SoccerMyOpener.COL_SIDE2, "Juventus");
+                    newRowValues.put(SoccerMyOpener.COL_EMBED, "<div style='width:100%;height:0px;position:relative;padding-bottom:calc(56.25% + 335px);' class='_scorebatEmbeddedPlayerW_'><iframe src='https:\\/\\/www.scorebat.com\\/embed\\/g\\/821217\\/?s=2' frameborder='0' width='560' height='650' allowfullscreen allow='autoplay; fullscreen' style='width:100%;height:100%;position:absolute;left:0px;top:0px;overflow:hidden;' class='_scorebatEmbeddedPlayer_'><\\/iframe><\\/div>");
+
+                   db.insert(SoccerMyOpener.TABLE_NAME, null, newRowValues);
+
                 })
-                .setNeutralButton("dismiss", (click, b) -> { })
+                .setNeutralButton("watch highlight", (click, b) -> {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.scorebat.com/embed/g/821217/?s=2")));
+                })
+//                .setNeutralButton("dismiss", (click, b) -> { })
                 .create().show();
     }
 
@@ -250,49 +243,8 @@ public class SoccerVideoActivity extends AppCompatActivity {
         }
     }
 
-    private void loadDataFromDatabase()
-    {
-
-        dbOpener = new SoccerMyOpener(this);
-        db = dbOpener.getWritableDatabase();
 
 
-        String [] columns = {SoccerMyOpener.COL_ID, SoccerMyOpener.COL_COUNTRY, SoccerMyOpener.COL_DATE, SoccerMyOpener.COL_SIDE1, SoccerMyOpener.COL_SIDE2, SoccerMyOpener.COL_EMBED};
-
-        results = db.query(false, SoccerMyOpener.TABLE_NAME, columns, null, null, null, null, null, null);
-
-
-        int countryColumnIndex = results.getColumnIndex(SoccerMyOpener.COL_COUNTRY);
-        int titleColumnIndex = results.getColumnIndex(SoccerMyOpener.COL_TITLE);
-        int dateColumnIndex = results.getColumnIndex(SoccerMyOpener.COL_DATE);
-        int side1ColumnIndex = results.getColumnIndex(SoccerMyOpener.COL_SIDE1);
-        int side2ColumnIndex = results.getColumnIndex(SoccerMyOpener.COL_SIDE2);
-        int embedColumnIndex = results.getColumnIndex(SoccerMyOpener.COL_EMBED);
-        int idColIndex = results.getColumnIndex(SoccerMyOpener.COL_ID);
-
-
-        while(results.moveToNext())
-        {
-            String country = results.getString(countryColumnIndex);
-            String title = results.getString(titleColumnIndex);
-            String date = results.getString(dateColumnIndex);
-            String side1 = results.getString(side1ColumnIndex);
-            String side2 = results.getString(side2ColumnIndex);
-            String embed = results.getString(embedColumnIndex);
-            long id = results.getLong(idColIndex);
-
-
-            elements.add(new SoccerVideo(country, title, date, side1, side2, embed, id));
-//            printCursor(results,db.getVersion());
-
-        }
-
-    }
-
-    protected void deleteVideo(SoccerVideo m)
-    {
-        db.delete(SoccerMyOpener.TABLE_NAME, SoccerMyOpener.COL_ID + "= ?", new String[] {Long.toString(m.getId())});
-    }
 
 //    protected void printCursor (Cursor c, int version) {
 //        int messageColumnIndex = c.getColumnIndex(MyOpener.COL_MESSAGE);
