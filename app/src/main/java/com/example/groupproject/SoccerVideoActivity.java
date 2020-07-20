@@ -58,7 +58,7 @@ public class SoccerVideoActivity extends AppCompatActivity {
 
         myList =  findViewById(R.id.theListView);
 
-        myList.setAdapter( myAdapter = new MyListAdapter() );
+
 
 //        SoccerVideo soccerVideo = new SoccerVideo("ITALY: Serie A", "Napoli - AC Milian","2020-07-09T17:00", "AC Milan", "Juventus", "https:\\/\\/www.scorebat.com\\/ac-milan-vs-juventus-live-stream\\/");
 
@@ -227,7 +227,7 @@ public class SoccerVideoActivity extends AppCompatActivity {
         //Type3
         public void onPostExecute(String fromDoInBackground)
         {
-//            myList.setAdapter( myAdapter = new MyListAdapter() );
+            myList.setAdapter( myAdapter = new MyListAdapter() );
 
         }
     }
