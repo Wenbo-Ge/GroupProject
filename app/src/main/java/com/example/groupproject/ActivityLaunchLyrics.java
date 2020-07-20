@@ -30,6 +30,10 @@ import java.util.ArrayList;
 
 public class ActivityLaunchLyrics extends AppCompatActivity {
 
+    public static final String ARTIST = "ARTIST";
+    public static final String TITLE = "TITLE";
+    public static final String LYRICS = "LYRICS";
+    public static final String FAVORITE = "FAVORITE";
     private EditText artistInput;
     private EditText titleInput;
     private Button search;
@@ -180,11 +184,13 @@ public class ActivityLaunchLyrics extends AppCompatActivity {
         public void onPostExecute(String fromDoInBackground) {
             Log.i("HTTP", fromDoInBackground);
             if (success) {
+                Bundle dataToPass = new Bundle();
+                dataToPass.putString(ARTIST, artist);
+                dataToPass.putString(TITLE, title);
+                dataToPass.putString(LYRICS, fromDoInBackground);
+                dataToPass.putBoolean(FAVORITE, false);
                 Intent goToResult = new Intent(ActivityLaunchLyrics.this, LyricsResultActivity.class);
-                goToResult.putExtra("ARTIST", artist);
-                goToResult.putExtra("TITLE", title);
-                goToResult.putExtra("LYRICS", fromDoInBackground);
-                goToResult.putExtra("FAVORITE", false);
+                goToResult.putExtras(dataToPass);
                 startActivity(goToResult);
             }
         }
