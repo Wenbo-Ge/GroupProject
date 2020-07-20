@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -58,11 +60,11 @@ public class SoccerVideoActivity extends AppCompatActivity {
 
         myList.setAdapter( myAdapter = new MyListAdapter() );
 
-        SoccerVideo soccerVideo = new SoccerVideo("ITALY: Serie A", "Napoli - AC Milian","2020-07-09T17:00", "AC Milan", "Juventus", "https:\\/\\/www.scorebat.com\\/ac-milan-vs-juventus-live-stream\\/");
+//        SoccerVideo soccerVideo = new SoccerVideo("ITALY: Serie A", "Napoli - AC Milian","2020-07-09T17:00", "AC Milan", "Juventus", "https:\\/\\/www.scorebat.com\\/ac-milan-vs-juventus-live-stream\\/");
 
-        elements.add(soccerVideo);
+//        elements.add(soccerVideo);
 
-        myAdapter.notifyDataSetChanged();
+//        myAdapter.notifyDataSetChanged();
 
         yourMatchButton = findViewById(R.id.matches);
 
@@ -114,12 +116,12 @@ public class SoccerVideoActivity extends AppCompatActivity {
                 .setPositiveButton("save", (click, b) -> {
                     ContentValues newRowValues = new ContentValues();
 
-                    newRowValues.put(SoccerMyOpener.COL_COUNTRY, "ITALY: Serie A");
-                    newRowValues.put(SoccerMyOpener.COL_TITLE, "Napoli - AC Milian");
-                    newRowValues.put(SoccerMyOpener.COL_DATE, "2020-07-09T17:00");
-                    newRowValues.put(SoccerMyOpener.COL_SIDE1, "AC Milan");
-                    newRowValues.put(SoccerMyOpener.COL_SIDE2, "Juventus");
-                    newRowValues.put(SoccerMyOpener.COL_EMBED, "<div style='width:100%;height:0px;position:relative;padding-bottom:calc(56.25% + 335px);' class='_scorebatEmbeddedPlayerW_'><iframe src='https:\\/\\/www.scorebat.com\\/embed\\/g\\/821217\\/?s=2' frameborder='0' width='560' height='650' allowfullscreen allow='autoplay; fullscreen' style='width:100%;height:100%;position:absolute;left:0px;top:0px;overflow:hidden;' class='_scorebatEmbeddedPlayer_'><\\/iframe><\\/div>");
+                    newRowValues.put(SoccerMyOpener.COL_COUNTRY, selectedMatch.getCountry());
+                    newRowValues.put(SoccerMyOpener.COL_TITLE, selectedMatch.getTitle());
+                    newRowValues.put(SoccerMyOpener.COL_DATE, selectedMatch.getDate());
+                    newRowValues.put(SoccerMyOpener.COL_SIDE1, selectedMatch.getSide1());
+                    newRowValues.put(SoccerMyOpener.COL_SIDE2, selectedMatch.getSide2());
+                    newRowValues.put(SoccerMyOpener.COL_EMBED, selectedMatch.getEmbed());
 
                    db.insert(SoccerMyOpener.TABLE_NAME, null, newRowValues);
 
@@ -134,7 +136,7 @@ public class SoccerVideoActivity extends AppCompatActivity {
     private class matchQuery extends AsyncTask< String, Integer, String>
     {
 
-        String side1, side2, country, matchDate, videoUrl;
+        String title, side1, side2, country, matchDate, videoUrl;
 
         //Type3                Type1
         protected String doInBackground(String ... args)
@@ -159,28 +161,49 @@ public class SoccerVideoActivity extends AppCompatActivity {
                 StringBuilder sb = new StringBuilder();
 
                 String line = null;
-                while ((line = reader.readLine()) != null)
-                {
+                int lineNumber;
+
+                line = reader.readLine();
+                for (lineNumber = 0; lineNumber < 37; lineNumber++) {
+                    line = reader.readLine();
                     sb.append(line + "\n");
                 }
+                    sb.append("}");
+//                while ((line = reader.readLine()) != null)
+//                {
+//
+//                    Log.i("result", sb.toString());
+//                }
                 String result = sb.toString(); //result is the whole string
+                Log.i("result", result);
+
 
 
 //                 convert string to JSON: Look at slide 27:
-                JSONObject matchJson = new JSONObject(result);
+                try {
+                    JSONObject matchJson = new JSONObject(result);
+                    JSONObject side1Json = matchJson.getJSONObject("side1");
+                    JSONObject side2Json = matchJson.getJSONObject("side1");
+                    JSONObject competitionJson = matchJson.getJSONObject("competition");
 
 //                get the double associated with "value"
-                side1 = matchJson.getString("side1");
-                side2 = matchJson.getString("side2");
-                country = matchJson.getString("competition");
-                matchDate = matchJson.getString("date");
-                videoUrl = matchJson.getString("url");
+                    title = matchJson.getString("title");
+                    side1 = side1Json.getString("name");
+                    side2 = side2Json.getString("name");
+                    country = competitionJson.getString("name");
+                    matchDate = matchJson.getString("date");
+                    videoUrl = matchJson.getString("embed");
 
-//                SoccerVideo soccerVideo = new SoccerVideo("ITALY: Serie A", "2020-07-09T17:00", "AC Milan", "Juventus", "https:\\/\\/www.scorebat.com\\/ac-milan-vs-juventus-live-stream\\/");
-//
-//                elements.add(soccerVideo);
-//
-//                myAdapter.notifyDataSetChanged();
+                    SoccerVideo soccerVideo = new SoccerVideo(country, title, matchDate, side1, side2, videoUrl);
+
+                    elements.add(soccerVideo);
+
+                    myAdapter.notifyDataSetChanged();
+                } catch (Throwable t){
+                    Log.e("JSON Error", "error");
+                }
+
+
 
 
 
