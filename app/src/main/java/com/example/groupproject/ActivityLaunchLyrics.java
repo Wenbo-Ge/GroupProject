@@ -1,9 +1,13 @@
 package com.example.groupproject;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -13,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -33,12 +38,16 @@ public class ActivityLaunchLyrics extends AppCompatActivity {
     public static final String ARTIST = "ARTIST";
     public static final String TITLE = "TITLE";
     public static final String LYRICS = "LYRICS";
-    public static final String FAVORITE = "FAVORITE";
+    //public static final String FAVORITE = "FAVORITE";
+    public static final String ID = "ID";
+    static final int REQUEST_FAVORITE_STATUS = 1;
     private EditText artistInput;
     private EditText titleInput;
     private Button search;
+    private CheckBox loadLastSearch;
     private ProgressBar pb;
-    private ArrayList<LyricsFavorite> favoriteList = new ArrayList<>();
+    private ArrayList<LyricsResult> favoriteList = new ArrayList<>();
+    private LyricsResult current;
     private FavoriteListAdapter adapter;
     private SQLiteDatabase db;
     private ListView favoriteView;
@@ -47,6 +56,7 @@ public class ActivityLaunchLyrics extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch_lyrics);
+        loadDataFromDatabase();
         search = findViewById(R.id.buttonLSSearch);
         search.setOnClickListener(v -> executeSearch());
         artistInput = findViewById(R.id.editTextLSArtist);
@@ -61,7 +71,7 @@ public class ActivityLaunchLyrics extends AppCompatActivity {
                             getString(R.string.textViewLSTitle) + ": " + adapter.getItem(pos).getTitle())
                     .setPositiveButton(getString(R.string.buttonLSAlertYes), (click, arg) -> {
                         favoriteList.remove(pos);
-                        //db.delete(MessageOpener.TABLE_NAME, MessageOpener.COL_ID + "= ?", new String[] {Long.toString(id)});
+                        db.delete(LyricsFavoriteOpener.TABLE_NAME, LyricsFavoriteOpener.COL_ID + "= ?", new String[] {Long.toString(id)});
                         adapter.notifyDataSetChanged();
                     })
                     //What the No button does:
@@ -70,6 +80,51 @@ public class ActivityLaunchLyrics extends AppCompatActivity {
                     .create().show();
             return true;
         });
+
+        favoriteView.setOnItemClickListener((p, b, pos, id) -> {
+            openResult(favoriteList.get(pos));
+        });
+
+        loadLastSearch = findViewById(R.id.checkboxLSLastSearch);
+        loadLastSearch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                SharedPreferences prefs = getSharedPreferences("lyrics_search", Context.MODE_PRIVATE);
+                artistInput.setText(prefs.getString(ARTIST, ""));
+                artistInput.setEnabled(false);
+                titleInput.setText(prefs.getString(TITLE, ""));
+                titleInput.setEnabled(false);
+            } else {
+                artistInput.setText("");
+                artistInput.setEnabled(true);
+                titleInput.setText("");
+                titleInput.setEnabled(true);
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_FAVORITE_STATUS && data != null) {
+            long id = data.getLongExtra(ID, 0);
+
+            if (current.getId() != 0 && current.getId() != id) {
+                // entry was removed from DB, remove from list
+                for(LyricsResult r : favoriteList) {
+                    if (r.getId() == current.getId()) {
+                        favoriteList.remove(r);
+                        adapter.notifyDataSetChanged();
+                        break;
+                    }
+                }
+            }
+
+            if (id > 0) {
+                favoriteList.add(new LyricsResult(current.getArtist(),
+                        current.getTitle(), current.getLyrics(), id));
+                adapter.notifyDataSetChanged();
+            }
+        }
     }
 
     @Override
@@ -79,51 +134,48 @@ public class ActivityLaunchLyrics extends AppCompatActivity {
         search.setEnabled(true);
     }
 
+    private void openResult(LyricsResult lr) {
+        Bundle dataToPass = new Bundle();
+        dataToPass.putString(ARTIST, lr.getArtist());
+        dataToPass.putString(TITLE, lr.getTitle());
+        dataToPass.putString(LYRICS, lr.getLyrics());
+        dataToPass.putLong(ID, lr.getId());
+        current = lr;
+        Intent goToResult = new Intent(ActivityLaunchLyrics.this, LyricsResultActivity.class);
+        goToResult.putExtras(dataToPass);
+        startActivityForResult(goToResult, REQUEST_FAVORITE_STATUS);
+    }
+
     private void executeSearch() {
         String artist = artistInput.getText().toString().trim();
         String title = titleInput.getText().toString().trim();
+
+        SharedPreferences prefs = getSharedPreferences("lyrics_search", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(ARTIST, artist);
+        editor.putString(TITLE, title);
+        editor.commit();
+
         if (artist.length() == 0 || title.length() == 0) {
             Toast.makeText(ActivityLaunchLyrics.this, getResources().getString(R.string.toastLSInvalidInput), Toast.LENGTH_LONG ).show();
         } else {
             search.setEnabled(false);
-            LyricsSearchRequest req = new LyricsSearchRequest();
-            req.execute(new String[]{artist, title});
-            pb.setVisibility(View.VISIBLE);
+            LyricsResult lr = localSearch(artist, title);
+            if (lr == null) {
+                LyricsSearchRequest req = new LyricsSearchRequest();
+                req.execute(new String[]{artist, title});
+                pb.setVisibility(View.VISIBLE);
+            } else {
+                openResult(lr);
+            }
         }
-
-
-
     }
 
-    private class LyricsFavorite {
-
-        private final String artist;
-        private final String title;
-        private final String lyrics;
-        private final long id;
-
-        public LyricsFavorite(String artist, String title, String lyrics, long id) {
-            this.artist = artist;
-            this.title = title;
-            this.lyrics = lyrics;
-            this.id = id;
+    private LyricsResult localSearch(String artist, String title) {
+        for (LyricsResult lr : favoriteList) {
+            if (lr.getArtist().equalsIgnoreCase(artist) && lr.getTitle().equalsIgnoreCase(title)) return lr;
         }
-
-        public String getLyrics() {
-            return lyrics;
-        }
-
-        public String getArtist() {
-            return artist;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-        public long getId() {
-            return id;
-        }
+        return null;
     }
 
     private static String capitalize(String s) {
@@ -184,18 +236,40 @@ public class ActivityLaunchLyrics extends AppCompatActivity {
         public void onPostExecute(String fromDoInBackground) {
             Log.i("HTTP", fromDoInBackground);
             if (success) {
-                Bundle dataToPass = new Bundle();
-                dataToPass.putString(ARTIST, artist);
-                dataToPass.putString(TITLE, title);
-                dataToPass.putString(LYRICS, fromDoInBackground);
-                dataToPass.putBoolean(FAVORITE, false);
-                Intent goToResult = new Intent(ActivityLaunchLyrics.this, LyricsResultActivity.class);
-                goToResult.putExtras(dataToPass);
-                startActivity(goToResult);
+                LyricsResult lr = new LyricsResult(artist, title, fromDoInBackground, 0);
+                openResult(lr);
             }
         }
     }
-    //startActivity(new Intent(ActivityLaunchLyrics.this, LyricsResultActivity.class));
+
+    private void loadDataFromDatabase() {
+        //get a database connection:
+        LyricsFavoriteOpener dbOpener = new LyricsFavoriteOpener(this);
+        db = dbOpener.getWritableDatabase();
+
+
+        // We want to get all of the columns. Look at MyOpener.java for the definitions:
+        String [] columns = {LyricsFavoriteOpener.COL_ID, LyricsFavoriteOpener.COL_ARTIST, LyricsFavoriteOpener.COL_TITLE, LyricsFavoriteOpener.COL_LYRICS};
+        //query all the results from the database:
+        Cursor results = db.query(false, LyricsFavoriteOpener.TABLE_NAME, columns, null, null, null, null, null, null);
+
+        //Now the results object has rows of results that match the query.
+        //find the column indices:
+        int artistColumnIndex = results.getColumnIndex(LyricsFavoriteOpener.COL_ARTIST);
+        int titleColIndex = results.getColumnIndex(LyricsFavoriteOpener.COL_TITLE);
+        int lyricsColIndex = results.getColumnIndex(LyricsFavoriteOpener.COL_LYRICS);
+        int idColIndex = results.getColumnIndex(LyricsFavoriteOpener.COL_ID);
+
+        //iterate over the results, return true if there is a next item:
+        while (results.moveToNext()) {
+            favoriteList.add(new LyricsResult(
+                    results.getString(artistColumnIndex),
+                    results.getString(titleColIndex),
+                    results.getString(lyricsColIndex),
+                    results.getLong(idColIndex)
+            ));
+        }
+    }
 
 
     private class FavoriteListAdapter extends BaseAdapter {
@@ -206,7 +280,7 @@ public class ActivityLaunchLyrics extends AppCompatActivity {
         }
 
         @Override
-        public LyricsFavorite getItem(int position) {
+        public LyricsResult getItem(int position) {
             return favoriteList.get(position);
         }
 
@@ -220,14 +294,14 @@ public class ActivityLaunchLyrics extends AppCompatActivity {
 
             LayoutInflater inflater = getLayoutInflater();
 
-            LyricsFavorite lf = getItem(position);
+            LyricsResult lf = getItem(position);
             //make a new row:
             View newView = inflater.inflate(R.layout.lyrics_favorite_row_layout, parent, false);
             //set what the text should be for this row:
             TextView tView = newView.findViewById(R.id.textViewLSFavoriteListArtist);
-            tView.setText(lf.getArtist());
+            tView.setText("   " + lf.getArtist());
             tView = newView.findViewById(R.id.textViewLSFavoriteListTitle);
-            tView.setText(lf.getTitle());
+            tView.setText("   " + lf.getTitle());
             //return it to be put in the table
             return newView;
         }

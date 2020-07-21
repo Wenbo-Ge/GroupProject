@@ -15,4 +15,5 @@
     <string name="alertTitleLSFavList">Do you want to remove this song from the favorite list?</string>
     <string name="buttonLSAlertYes">Yes</string>
     <string name="buttonLSAlertNo">No</string>
+    <string name="checkboxLSLastSearch">Load last search</string>
 </resources>

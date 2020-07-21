@@ -3,6 +3,7 @@ package com.example.groupproject;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -12,6 +13,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 public class LyricsResultActivity extends AppCompatActivity {
 
+    private Intent returnIntent = new Intent();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,4 +27,5 @@ public class LyricsResultActivity extends AppCompatActivity {
                 .replace(R.id.fragmentLocation, fragment) //Add the fragment in FrameLayout
                 .commit(); //actually load the fragment. Calls onCreate() in DetailFragment
     }
+
 }

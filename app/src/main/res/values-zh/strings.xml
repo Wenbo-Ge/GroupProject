@@ -16,4 +16,5 @@
     <string name="snackbarLSFavoriteOn">已收藏</string>
     <string name="snackbarLSFavoriteOff">已取消收藏</string>
     <string name="snackbarLSFavoriteUndo">还原</string>
+    <string name="checkboxLSLastSearch">上一个搜索</string>
 </resources>
