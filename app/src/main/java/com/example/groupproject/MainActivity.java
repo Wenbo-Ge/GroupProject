@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         geoButton = findViewById(R.id.imageGeo);
         soccerButton = findViewById(R.id.imageSoccer);
         lyricsButton = findViewById(R.id.imageSong);

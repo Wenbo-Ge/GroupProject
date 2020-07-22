@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">小组项目</string>
+    <!-- Lyrics search -->
     <string name="textViewLSTitle">歌词搜索</string>
     <string name="textViewLSArtist">艺术家</string>
     <string name="textEditLSArtist">比如Police</string>
@@ -17,4 +18,11 @@
     <string name="snackbarLSFavoriteOff">已取消收藏</string>
     <string name="snackbarLSFavoriteUndo">还原</string>
     <string name="checkboxLSLastSearch">上一个搜索</string>
+    <!-- Geo Data Source -->
+    <string name="geoWelcome">欢迎来到地理数据查阅</string>
+    <string name="geoLatLong">输入经度和纬度来查找附近城市</string>
+    <string name="geoLat">输入纬度</string>
+    <string name="geoLong">输入经度</string>
+    <string name="geoSearch">查找</string>
+    <string name="geoFav">显示心仪城市</string>
 </resources>
