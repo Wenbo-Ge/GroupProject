@@ -75,9 +75,8 @@ public class LyricsResultFragment extends Fragment {
             favorite.setBackgroundDrawable(ContextCompat.getDrawable(parentActivity.getApplicationContext(), isChecked ? R.drawable.heart_filled : R.drawable.heart_empty));
             Snackbar.make(favorite, getResources().getString(isChecked ? R.string.snackbarLSFavoriteOn : R.string.snackbarLSFavoriteOff), Snackbar.LENGTH_SHORT)
                     .setAction(getResources().getString(R.string.snackbarLSFavoriteUndo),click -> favorite.setChecked(!isChecked)).show();
-
             returnIntent.putExtra(ActivityLaunchLyrics.ID, lr.getId());
-
+            parentActivity.setResult(Activity.RESULT_OK,returnIntent);
         });
         Button b = result.findViewById(R.id.buttonLSWebSearch);
         b.setOnClickListener(v -> {
@@ -95,7 +94,6 @@ public class LyricsResultFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         parentActivity = (AppCompatActivity)context;
-        parentActivity.setResult(Activity.RESULT_OK,returnIntent);
     }
 
 }
