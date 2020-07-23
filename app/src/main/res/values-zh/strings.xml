@@ -25,4 +25,16 @@
     <string name="geoLong">输入经度</string>
     <string name="geoSearch">查找</string>
     <string name="geoFav">显示心仪城市</string>
+
+    <!-- Soccer -->
+    <string name="soccerPassword">密码</string>
+    <string name="soccerInputPassword">输入密码</string>
+    <string name="soccerLogin">登录</string>
+    <string name="soccerWatch">看</string>
+    <string name="soccerSave">保存</string>
+    <string name="soccerHighlights">集锦</string>
+    <string name="soccer_your_match">你的最爱</string>
+    <string name="soccer_title">对战</string>
+    <string name="soccer_loading">loading</string>
+
 </resources>
