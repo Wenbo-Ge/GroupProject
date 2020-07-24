@@ -54,6 +54,7 @@ public class LyricsResultFragment extends Fragment {
         boolean isFavorite = id > 0;
         favorite.setChecked(isFavorite);
         favorite.setBackgroundDrawable(ContextCompat.getDrawable(parentActivity.getApplicationContext(), isFavorite ? R.drawable.heart_filled : R.drawable.heart_empty));
+        // click event handler for favorite toggle button
         favorite.setOnCheckedChangeListener((v, isChecked) -> {
             if (db == null) {
                 LyricsFavoriteOpener dbOpener = new LyricsFavoriteOpener(parentActivity);
@@ -75,6 +76,7 @@ public class LyricsResultFragment extends Fragment {
             favorite.setBackgroundDrawable(ContextCompat.getDrawable(parentActivity.getApplicationContext(), isChecked ? R.drawable.heart_filled : R.drawable.heart_empty));
             Snackbar.make(favorite, getResources().getString(isChecked ? R.string.snackbarLSFavoriteOn : R.string.snackbarLSFavoriteOff), Snackbar.LENGTH_SHORT)
                     .setAction(getResources().getString(R.string.snackbarLSFavoriteUndo),click -> favorite.setChecked(!isChecked)).show();
+            // Pass favoriate/db status back to previous activity
             returnIntent.putExtra(ActivityLaunchLyrics.ID, lr.getId());
             parentActivity.setResult(Activity.RESULT_OK,returnIntent);
         });
