@@ -15,6 +15,13 @@
     <string name="geoSearch">SEARCH</string>
     <string name="geoFav">SHOW FAVORITE CITIES</string>
     <string name="geoHelp">HELP</string>
+    <string name="gotoMap">HELP</string>
+    <string name="geoFavCity">Save to Favorite</string>
+    <string name="geoRemoveFav">Remove from Favorites</string>
+    <string name="geoHelpMsg">Type in a latitude e.g. 45.424721, a longitude e.g. -75.695000 (City of Ottawa) to find out its nearby cities</string>
+    <string name="geoTips">Tips:</string>
+    <string name="geoBack">Back to Geo</string>
+    <string name="geoNavBtn">Back</string>
 
     <!-- Song Lyrics Search -->
     <string name="textViewLSTitle">Song Title</string>

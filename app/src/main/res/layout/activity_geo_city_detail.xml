@@ -41,12 +41,12 @@
         android:id="@+id/mapButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="GO TO MAP" />
+        android:text="@string/gotoMap" />
 
     <Button
         android:id="@+id/favoriteButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="SAVE as FAVORITE" />
+        android:text="@string/geoFavCity" />
 
 </LinearLayout>
