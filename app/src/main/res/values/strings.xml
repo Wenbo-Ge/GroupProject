@@ -48,8 +48,9 @@
     <string name="buttonLSAlertYes">Yes</string>
     <string name="buttonLSAlertNo">No</string>
     <string name="checkboxLSLastSearch">Load last search</string>
-  
-  
+    <string name="toastLSNotFound">Lyrics not found</string>
+
+
     <!-- Deezer song search api -->
 
 </resources>

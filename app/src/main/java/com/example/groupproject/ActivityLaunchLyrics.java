@@ -219,7 +219,9 @@ public class ActivityLaunchLyrics extends AppCompatActivity {
 
                 JSONObject resultObject = new JSONObject(result);
                 String lyrics = resultObject.getString("lyrics");
-                success = true;
+                if (lyrics.length() > 0) {
+                    success = true;
+                }
                 return lyrics;
             } catch (Exception e) {
                 String m = "Failed to search lyrics due to error: " + e.getMessage();
@@ -238,6 +240,10 @@ public class ActivityLaunchLyrics extends AppCompatActivity {
             if (success) {
                 LyricsResult lr = new LyricsResult(artist, title, fromDoInBackground, 0);
                 openResult(lr);
+            } else {
+                pb.setVisibility(View.INVISIBLE);
+                search.setEnabled(true);
+                Toast.makeText(ActivityLaunchLyrics.this, getResources().getString(R.string.toastLSNotFound), Toast.LENGTH_LONG ).show();
             }
         }
     }

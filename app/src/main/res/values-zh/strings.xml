@@ -18,6 +18,7 @@
     <string name="snackbarLSFavoriteOff">已取消收藏</string>
     <string name="snackbarLSFavoriteUndo">还原</string>
     <string name="checkboxLSLastSearch">上一个搜索</string>
+    <string name="toastLSNotFound">没找到</string>
     <!-- Geo Data Source -->
     <string name="geoWelcome">欢迎来到地理数据查阅</string>
     <string name="geoLatLong">输入经度和纬度来查找附近城市</string>
@@ -44,5 +45,6 @@
     <string name="soccer_your_match">你的最爱</string>
     <string name="soccer_title">对战</string>
     <string name="soccer_loading">loading</string>
+
 
 </resources>
