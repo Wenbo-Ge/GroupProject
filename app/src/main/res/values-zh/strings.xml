@@ -25,6 +25,14 @@
     <string name="geoLong">输入经度</string>
     <string name="geoSearch">查找</string>
     <string name="geoFav">显示心仪城市</string>
+    <string name="geoHelp">帮助</string>
+    <string name="gotoMap">地图</string>
+    <string name="geoFavCity">存为收藏</string>
+    <string name="geoRemoveFav">删除收藏</string>
+    <string name="geoHelpMsg">输入纬度，例如 45.424721，经度，例如 -75.695000（渥太华市）找出附近的城市</string>
+    <string name="geoTips">提示：</string>
+    <string name="geoBack">返回地理数据</string>
+    <string name="geoNavBtn">返回</string>
 
     <!-- Soccer -->
     <string name="soccerPassword">密码</string>

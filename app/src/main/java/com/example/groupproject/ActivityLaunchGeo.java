@@ -80,13 +80,13 @@ public class ActivityLaunchGeo extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(ActivityLaunchGeo.this);
-                builder.setTitle("Tips:")
-                        .setMessage("Type in a latitude e.g. 45.424721, a longitude e.g. -75.695000 (City of Ottawa) to find out its nearby cities")
+                builder.setTitle(R.string.geoTips)
+                        .setMessage(R.string.geoHelpMsg)
                         .setCancelable(false)
-                        .setNegativeButton("Back", new DialogInterface.OnClickListener() {
+                        .setNegativeButton(R.string.geoNavBtn, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(getApplicationContext(), "Back to Geo", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), R.string.geoBack, Toast.LENGTH_SHORT).show();
                             }
                         });
                 //Creating dialog box
