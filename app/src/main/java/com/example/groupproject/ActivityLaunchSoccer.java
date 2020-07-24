@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +17,7 @@ public class ActivityLaunchSoccer extends AppCompatActivity {
     Button loginButton;
     Intent goToLoading;
     EditText passField = null;
+    SharedPreferences prefs = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +28,13 @@ public class ActivityLaunchSoccer extends AppCompatActivity {
 
         goToLoading = new Intent(ActivityLaunchSoccer.this, SoccerLoading.class);
 
+        prefs = getSharedPreferences("SavedPassword", Context.MODE_PRIVATE);
+
+        String savedString = prefs.getString("Pass", "");
+
         loginButton = findViewById(R.id.button3);
         passField = findViewById(R.id.textView6);
+        passField.setText(savedString);
 
         loginButton.setOnClickListener(bt -> {
 
@@ -46,5 +53,17 @@ public class ActivityLaunchSoccer extends AppCompatActivity {
             }
 
         });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        saveSharedPrefs(passField.getText().toString());
+    }
+
+    private void saveSharedPrefs(String stringToSave) {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("Pass", stringToSave);
+        editor.commit();
     }
 }

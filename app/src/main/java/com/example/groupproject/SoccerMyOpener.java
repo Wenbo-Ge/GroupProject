@@ -30,11 +30,11 @@ public class SoccerMyOpener extends SQLiteOpenHelper {
     {
         db.execSQL("CREATE TABLE " + TABLE_NAME + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "COUNTRY text, " +
+                "TITLE text, " +
                 "DATE text, " +
                 "SIDE1 text, " +
-                "SIDE2 text, " +
-                "EMBED, text" +
-                "TITLE, text);");
+                "SIDE2 text," +
+                "EMBED text);");
     }
 
 

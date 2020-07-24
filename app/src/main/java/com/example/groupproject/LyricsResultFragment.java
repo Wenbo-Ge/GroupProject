@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,9 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.google.android.material.snackbar.Snackbar;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 public class LyricsResultFragment extends Fragment {
 
@@ -82,7 +86,12 @@ public class LyricsResultFragment extends Fragment {
         });
         Button b = result.findViewById(R.id.buttonLSWebSearch);
         b.setOnClickListener(v -> {
-            Uri uri = Uri.parse("https://www.google.com/search?q=" + lr.getArtist().replaceAll("\\s+", "+") + "+" + lr.getTitle().replaceAll("\\s+", "+"));
+            Uri uri = null;
+            try {
+                uri = Uri.parse("https://www.google.com/search?q=" + URLEncoder.encode(lr.getArtist(), "utf-8") + "+" + URLEncoder.encode(lr.getTitle(), "utf-8"));
+            } catch (UnsupportedEncodingException e) {
+                Log.e("LYRICS_RESULT_VIEW", e.getMessage());
+            }
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
             if (intent.resolveActivity(parentActivity.getPackageManager()) != null) {
                 startActivity(intent);

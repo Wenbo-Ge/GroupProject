@@ -31,6 +31,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 public class ActivityLaunchLyrics extends AppCompatActivity {
@@ -201,8 +202,7 @@ public class ActivityLaunchLyrics extends AppCompatActivity {
                 artist = capitalize(args[0]);
                 title = capitalize(args[1]);
                 //create a URL object of what server to contact:
-                URL url = new URL("https://api.lyrics.ovh/v1/" + artist.replaceAll("\\s+", "%20") + "/" + title.replaceAll("\\s+", "%20"));
-
+                URL url = new URL("https://api.lyrics.ovh/v1/" + URLEncoder.encode(artist, "utf-8" )  + "/" + URLEncoder.encode(title, "utf-8"));
                 //open the connection
                 urlConnection = (HttpURLConnection) url.openConnection();
 
