@@ -14,6 +14,7 @@
     <string name="geoLong">Type longitude here</string>
     <string name="geoSearch">SEARCH</string>
     <string name="geoFav">SHOW FAVORITE CITIES</string>
+    <string name="geoHelp">HELP</string>
 
     <!-- Song Lyrics Search -->
     <string name="textViewLSTitle">Song Title</string>

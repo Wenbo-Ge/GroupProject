@@ -18,6 +18,7 @@
         <activity android:name=".SoccerLoading"></activity>
         <activity android:name=".ActivityLaunchSoccer" />
         <activity android:name=".ActivityLaunchGeo" />
+        <activity android:name=".GeoCitySearchResult" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,18 +1,25 @@
+
 package com.example.groupproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import org.json.JSONObject;
 import org.xmlpull.v1.XmlPullParser;
@@ -26,17 +33,20 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class ActivityLaunchGeo extends AppCompatActivity {
     private static final String ACTIVITY_LAUNCH_GEO = "ACTIVITY_LAUNCH_GEO";
     EditText latField, lonField;
-    Button searchBtn, showFavBtn;
+    Button searchBtn, showFavBtn, helpBtn;
     ProgressBar pBar;
-    LinkedList <City> cityList;
+    ArrayList<GeoCity> cityList;
+    Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,27 +58,51 @@ public class ActivityLaunchGeo extends AppCompatActivity {
         searchBtn = findViewById(R.id.searchButton);
         showFavBtn = findViewById(R.id.showFavoritesButton);
         pBar = findViewById(R.id.progressBar);
+        helpBtn = findViewById(R.id.helpButton);
 
-        cityList = new LinkedList<>();
+        cityList = new ArrayList<>();
+        bundle = new Bundle();
 
-        searchBtn.setOnClickListener( bt -> {
-            String urlStr = new String("https://api.geodatasource.com/cities?key=BIWYTHEHQX0UOENOSAL1EOCF2VCSFHBW&lat="
-                    + latField.getText().toString() + "&lng=" + lonField.getText().toString() + "&format=xml");
-            Log.i(ACTIVITY_LAUNCH_GEO, "urlStr: " + urlStr);
-            CitySearchQuery query = new CitySearchQuery();
-            pBar.setVisibility(View.VISIBLE);
-            query.execute(urlStr);
+        searchBtn.setOnClickListener(bt -> {
+            String lat = latField.getText().toString();
+            String lng = lonField.getText().toString();
+
+            if(!lat.isEmpty() && !lng.isEmpty()) {
+                String urlStr = new String("https://api.geodatasource.com/cities?key=BIWYTHEHQX0UOENOSAL1EOCF2VCSFHBW&lat="
+                        + lat + "&lng=" + lng + "&format=xml");
+                Log.i(ACTIVITY_LAUNCH_GEO, "urlStr: " + urlStr);
+                CitySearchQuery query = new CitySearchQuery();
+                query.execute(urlStr);
+            }
+        });
+
+        helpBtn.setOnClickListener(new AdapterView.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(ActivityLaunchGeo.this);
+                builder.setTitle("Tips:")
+                        .setMessage("Type in a latitude e.g. 45.424721, a longitude e.g. -75.695000 (City of Ottawa) to find out its nearby cities")
+                        .setCancelable(false)
+                        .setNegativeButton("Back", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Toast.makeText(getApplicationContext(), "Back to Geo", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                //Creating dialog box
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
         });
     }
 
     protected class CitySearchQuery extends AsyncTask<String, Integer, String> {
         private String country, region, city, currency, latitude, longitude;
-        private int progress, increment = 5;
+        private int progress = 0, increment = 5;
 
         public String doInBackground(String... args) {
             Log.i(ACTIVITY_LAUNCH_GEO, "Start background process");
             try {
-
                 //create a URL object of what server to contact:
                 URL url = new URL(args[0]);
 
@@ -83,50 +117,55 @@ public class ActivityLaunchGeo extends AppCompatActivity {
                 XmlPullParser xpp = factory.newPullParser();
                 xpp.setInput(response, "UTF-8");
 
-                String parameter = null;
-
                 int eventType = xpp.getEventType(); //The parser is currently at START_DOCUMENT
-                progress = 5;
+                boolean newCity = false;
+//                pBar.setVisibility(View.VISIBLE);
 
                 while (eventType != XmlPullParser.END_DOCUMENT) {
-
                     if (eventType == XmlPullParser.START_TAG) {
-                        //If you get here, then you are pointing at a start tag
-//                        Log.i(ACTIVITY_LAUNCH_GEO, ""+xpp.getName().toString());
-                        if (xpp.getName().equals("city")) {
+//                        Log.i(ACTIVITY_LAUNCH_GEO, "Tag: " + xpp.getName());
+                        if (xpp.getName().equals("country")) {
+                            country = new String(xpp.nextText());
+//                          Log.i(ACTIVITY_LAUNCH_GEO, "country: " + country);
+                        } else if (xpp.getName().equals("region")) {
+                            region = new String(xpp.nextText());
+//                          Log.i(ACTIVITY_LAUNCH_GEO, "region: " + region);
+                        } else if (xpp.getName().equals("city")) {
                             //If you get here, then you are pointing to a <city> start tag
                             city = new String(xpp.nextText());
-                            Log.i(ACTIVITY_LAUNCH_GEO, "city: " + city);
-                        }
-                        else if(xpp.getName().equals("country")) {
-                            country = new String(xpp.nextText());
-                            Log.i(ACTIVITY_LAUNCH_GEO, "country: " + country);
-                        }
-                        else if(xpp.getName().equals("region")) {
-                            region = new String(xpp.nextText());
-                            Log.i(ACTIVITY_LAUNCH_GEO, "region: " + region);
-                        }
-                        else if(xpp.getName().equals("latitude")) {
+//                          Log.i(ACTIVITY_LAUNCH_GEO, "city: " + city);
+                        } else if (xpp.getName().equals("latitude")) {
                             latitude = new String(xpp.nextText());
-                            Log.i(ACTIVITY_LAUNCH_GEO, "latitude: " + latitude);
-                        }
-                        else if(xpp.getName().equals("longitude")) {
+//                          Log.i(ACTIVITY_LAUNCH_GEO, "latitude: " + latitude);
+                        } else if (xpp.getName().equals("longitude")) {
                             longitude = new String(xpp.nextText());
-                            Log.i(ACTIVITY_LAUNCH_GEO, "longitude: " + longitude);
-                        }
-                        else if(xpp.getName().equals("currency_name")) {
+//                          Log.i(ACTIVITY_LAUNCH_GEO, "longitude: " + longitude);
+                        } else if (xpp.getName().equals("currency_name")) {
                             currency = new String(xpp.nextText());
-                            Log.i(ACTIVITY_LAUNCH_GEO, "currency: " + currency);
+                            newCity = true;
+//                          Log.i(ACTIVITY_LAUNCH_GEO, "currency: " + currency);
                         }
+                    }
 
-                        cityList.add(new City(country, region, city, currency, latitude, longitude));
-                        progress += increment;
-                        publishProgress(progress);
+                    if(newCity) {
+                        cityList.add(new GeoCity(country, region, city, currency, latitude, longitude));
+                        newCity = false;
+
+                        if(progress < 100 - increment) {
+                            progress += increment;
+                            publishProgress(progress);
+                        }
                     }
                     eventType = xpp.next(); //move to the next xml event and store it in a variable
                 }
 
+                publishProgress(100);
+
                 Log.i(ACTIVITY_LAUNCH_GEO, "Num of cities: " + cityList.size());
+                for(int i = 0; i < cityList.size(); i++) {
+                    Log.i(ACTIVITY_LAUNCH_GEO, "City: " + cityList.get(i).getCity());
+                }
+
             } catch (Exception e) {
 
             }
@@ -141,40 +180,12 @@ public class ActivityLaunchGeo extends AppCompatActivity {
 
         public void onPostExecute(String fromDoingInBackground) {
             Log.i(ACTIVITY_LAUNCH_GEO, fromDoingInBackground);
-//            currentTemp.setText("Current Temperature: " + currentTempStr);
-//            minTemp.setText("Min Temperature: " + minTempStr);
-//            maxTemp.setText("Max Temperature: " + maxTempStr);
-//            uvRate.setText("UV Rating: " + uvRateStr);
-
             pBar.setVisibility(View.INVISIBLE);
 
+            bundle.putParcelableArrayList("cityList", cityList);
             Intent goToCitySearchResult = new Intent(ActivityLaunchGeo.this, GeoCitySearchResult.class);
-        }
-    }
-
-    public class City {
-        protected String country, region, city, currency, latitude, longitude;
-
-        public City (String country, String region, String city, String currency, String latitude, String longitude) {
-            this.country = country;
-            this.region = region;
-            this.city = city;
-            this.currency = currency;
-            this.latitude = latitude;
-            this.longitude = longitude;
-        }
-
-        public City (String city) {
-            this.country = null;
-            this.region = null;
-            this.city = city;
-            this.currency = null;
-            this.latitude = null;
-            this.longitude = null;
-        }
-
-        public String getCity() {
-            return city;
+            goToCitySearchResult.putExtras(bundle);
+            startActivity(goToCitySearchResult);
         }
     }
 
