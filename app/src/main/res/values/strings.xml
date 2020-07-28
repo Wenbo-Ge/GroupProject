@@ -1,6 +1,10 @@
 <resources>
     <!-- Main Page -->
     <string name="app_name">GroupProject</string>
+    <string name="menuSoccer">Soccer</string>
+    <string name="menuGeo">City Finder</string>
+    <string name="menuDeezer">Deezer</string>
+    <string name="menuLS">Lyrics Search</string>
 
     <!-- Soccer -->
     <string name="soccerPassword">Password</string>
@@ -49,6 +53,9 @@
     <string name="buttonLSAlertNo">No</string>
     <string name="checkboxLSLastSearch">Load last search</string>
     <string name="toastLSNotFound">Lyrics not found</string>
+    <string name="menuLSabout">About this project</string>
+    <string name="LSabout">This is the lyrics search activity, written by Mei Gao</string>
+
 
 
     <!-- Deezer song search api -->

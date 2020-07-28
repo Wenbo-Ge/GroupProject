@@ -3,6 +3,7 @@ package com.example.groupproject;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +14,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -101,6 +105,40 @@ public class ActivityLaunchLyrics extends AppCompatActivity {
                 titleInput.setEnabled(true);
             }
         });
+
+        Toolbar tBar = (Toolbar)findViewById(R.id.toolbarLSLaunch);
+        setSupportActionBar(tBar);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu items for use in the action bar
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.lyrics_search_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent goTo = null;
+        switch(item.getItemId())
+        {
+            //what to do when the menu item is selected:
+            case R.id.menuLSabout:
+                Toast.makeText(this, R.string.LSabout, Toast.LENGTH_LONG).show();
+                break;
+            case R.id.menuLSdeezer:
+                goTo = new Intent(ActivityLaunchLyrics.this, ActivityLaunchSinger.class);
+                break;
+            case R.id.menuLSgeo:
+                goTo = new Intent(ActivityLaunchLyrics.this, ActivityLaunchGeo.class);
+                break;
+            case R.id.menuLSsoccer:
+                goTo = new Intent(ActivityLaunchLyrics.this, ActivityLaunchSoccer.class);
+                break;
+        }
+        if (goTo != null) startActivity(goTo);
+        return true;
     }
 
     @Override

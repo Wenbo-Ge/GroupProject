@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">小组项目</string>
+    <string name="menuSoccer">足球比赛搜索</string>
+    <string name="menuGeo">城市搜索</string>
+    <string name="menuDeezer">歌曲搜索</string>
+    <string name="menuLS">歌词搜索</string>
     <!-- Lyrics search -->
     <string name="textViewLSTitle">歌词搜索</string>
     <string name="textViewLSArtist">艺术家</string>
@@ -19,6 +23,8 @@
     <string name="snackbarLSFavoriteUndo">还原</string>
     <string name="checkboxLSLastSearch">上一个搜索</string>
     <string name="toastLSNotFound">没找到</string>
+    <string name="menuLSabout">关于</string>
+    <string name="LSabout">这是歌词搜索，高梅制作</string>
     <!-- Geo Data Source -->
     <string name="geoWelcome">欢迎来到地理数据查阅</string>
     <string name="geoLatLong">输入经度和纬度来查找附近城市</string>
@@ -45,6 +51,4 @@
     <string name="soccer_your_match">你的最爱</string>
     <string name="soccer_title">对战</string>
     <string name="soccer_loading">loading</string>
-
-
 </resources>
