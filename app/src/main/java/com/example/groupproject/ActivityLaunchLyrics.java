@@ -1,18 +1,26 @@
 package com.example.groupproject;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -24,6 +32,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.navigation.NavigationView;
+
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -34,7 +44,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
-public class ActivityLaunchLyrics extends AppCompatActivity {
+public class ActivityLaunchLyrics extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener  {
 
     public static final String ARTIST = "ARTIST";
     public static final String TITLE = "TITLE";
@@ -101,6 +111,87 @@ public class ActivityLaunchLyrics extends AppCompatActivity {
                 titleInput.setEnabled(true);
             }
         });
+
+        Toolbar tBar = (Toolbar)findViewById(R.id.toolbarLSLaunch);
+        setSupportActionBar(tBar);
+
+        DrawerLayout drawer = findViewById(R.id.LSdrawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
+                drawer, tBar, R.string.LSnavdrawerOpen, R.string.LSnavdrawerClose);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = findViewById(R.id.navViewLS);
+        navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu items for use in the action bar
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.lyrics_search_toolbar_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent goTo = null;
+        switch(item.getItemId())
+        {
+            //what to do when the menu item is selected:
+            case R.id.menuLSabout:
+                Toast.makeText(this, R.string.LSabout, Toast.LENGTH_LONG).show();
+                break;
+            case R.id.menuLSdeezer:
+                goTo = new Intent(ActivityLaunchLyrics.this, ActivityLaunchSinger.class);
+                break;
+            case R.id.menuLSgeo:
+                goTo = new Intent(ActivityLaunchLyrics.this, ActivityLaunchGeo.class);
+                break;
+            case R.id.menuLSsoccer:
+                goTo = new Intent(ActivityLaunchLyrics.this, ActivityLaunchSoccer.class);
+                break;
+        }
+        if (goTo != null) startActivity(goTo);
+        return true;
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        AlertDialog.Builder alertDialogBuilder;
+        switch(item.getItemId()) {
+            case R.id.menuLSInstruction:
+                alertDialogBuilder = new AlertDialog.Builder(this);
+                alertDialogBuilder.setTitle(getString(R.string.alertHelpTitleLS))
+                        .setMessage(getString(R.string.alertHelpTextLS))
+                        .setPositiveButton(getString(R.string.buttonLSAlertOk), (click, arg) -> {})
+                        .create().show();
+                break;
+            case R.id.menuLSAboutAPI:
+                Uri uri = Uri.parse("https://lyricsovh.docs.apiary.io/#");
+
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                if (intent.resolveActivity(this.getPackageManager()) != null) {
+                    startActivity(intent);
+                }
+                break;
+            case R.id.menuLSDonate:
+                alertDialogBuilder = new AlertDialog.Builder(this);
+                final View customLayout = getLayoutInflater().inflate(R.layout.lyrics_search_donate_dialog, null);
+                alertDialogBuilder.setView(customLayout);
+                alertDialogBuilder.setTitle(getString(R.string.alertDonateTitleLS))
+                        .setMessage(getString(R.string.alertDonateMessageLS))
+                        .setPositiveButton(getString(R.string.buttonLSAlertThankYou), (click, arg) -> {})
+                        .setNegativeButton(getString(R.string.buttonLSAlertCancel), (click, arg) -> { })
+                        .create().show();
+                break;
+        }
+
+        DrawerLayout drawerLayout = findViewById(R.id.LSdrawer_layout);
+        drawerLayout.closeDrawer(GravityCompat.START);
+
+        //Toast.makeText(this, "NavigationDrawer: " + message, Toast.LENGTH_LONG).show();
+        return false;
     }
 
     @Override
@@ -219,7 +310,9 @@ public class ActivityLaunchLyrics extends AppCompatActivity {
 
                 JSONObject resultObject = new JSONObject(result);
                 String lyrics = resultObject.getString("lyrics");
-                success = true;
+                if (lyrics.length() > 0) {
+                    success = true;
+                }
                 return lyrics;
             } catch (Exception e) {
                 String m = "Failed to search lyrics due to error: " + e.getMessage();
@@ -238,6 +331,10 @@ public class ActivityLaunchLyrics extends AppCompatActivity {
             if (success) {
                 LyricsResult lr = new LyricsResult(artist, title, fromDoInBackground, 0);
                 openResult(lr);
+            } else {
+                pb.setVisibility(View.INVISIBLE);
+                search.setEnabled(true);
+                Toast.makeText(ActivityLaunchLyrics.this, getResources().getString(R.string.toastLSNotFound), Toast.LENGTH_LONG ).show();
             }
         }
     }
