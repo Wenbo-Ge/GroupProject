@@ -55,7 +55,20 @@
     <string name="toastLSNotFound">Lyrics not found</string>
     <string name="menuLSabout">About this project</string>
     <string name="LSabout">This is the lyrics search activity, written by Mei Gao</string>
-
+    <string name="LSnavdrawerClose">Close</string>
+    <string name="LSnavdrawerOpen">Open</string>
+    <string name="LSnavInstructionItem">Instructions for this app</string>
+    <string name="LSnavAboutItem">About the API</string>
+    <string name="LSnavDonateItem">Donate to Project</string>
+    <string name="alertHelpTitleLS">Instructions</string>
+    <string name="alertHelpTextLS">Main View\n* Enter artist/band name and song name in the input boxes and click search button to get the lyrics\n* Check "load last search" box to redo the last search\n* You can also click any item in the favorite list to view the lyrics saved locally\n* Long click items in the favorite list will bring up a dialog for deleting the song from the list\n\nLyrics View\n* Click the heart button will add/remove the song into/from the favorite list\n* Click the google button will bring up the google search page for the song
+    </string>
+    <string name="buttonLSAlertOk">OK</string>
+    <string name="alertDonateTitleLS">Please give generou$ly</string>
+    <string name="alertDonateMessageLS">How much money do you want to donate?</string>
+    <string name="buttonLSAlertThankYou">Thank you</string>
+    <string name="buttonLSAlertCancel">cancel</string>
+    <string name="textEditDonateLS">$$$</string>
 
 
     <!-- Deezer song search api -->

@@ -2,19 +2,13 @@ package com.example.groupproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ToggleButton;
-
-import com.google.android.material.snackbar.Snackbar;
 
 public class LyricsResultActivity extends AppCompatActivity {
 
@@ -41,7 +35,7 @@ public class LyricsResultActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu items for use in the action bar
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.lyrics_search_menu, menu);
+        inflater.inflate(R.menu.lyrics_search_toolbar_menu, menu);
         return true;
     }
 

@@ -25,6 +25,19 @@
     <string name="toastLSNotFound">没找到</string>
     <string name="menuLSabout">关于</string>
     <string name="LSabout">这是歌词搜索，高梅制作</string>
+    <string name="LSnavdrawerClose">关闭</string>
+    <string name="LSnavdrawerOpen">打开</string>
+    <string name="LSnavInstructionItem">使用说明</string>
+    <string name="LSnavAboutItem">关于应用接口</string>
+    <string name="LSnavDonateItem">捐赠</string>
+    <string name="alertHelpTitleLS">说明</string>
+    <string name="alertHelpTextLS">help text</string>
+    <string name="buttonLSAlertOk">好的</string>
+    <string name="alertDonateTitleLS">请慷慨捐助</string>
+    <string name="alertDonateMessageLS">您要捐赠多少？</string>
+    <string name="buttonLSAlertThankYou">谢谢</string>
+    <string name="buttonLSAlertCancel">取消</string>
+    <string name="textEditDonateLS">￥￥￥</string>
     <!-- Geo Data Source -->
     <string name="geoWelcome">欢迎来到地理数据查阅</string>
     <string name="geoLatLong">输入经度和纬度来查找附近城市</string>
@@ -51,4 +64,6 @@
     <string name="soccer_your_match">你的最爱</string>
     <string name="soccer_title">对战</string>
     <string name="soccer_loading">loading</string>
+
+
 </resources>
