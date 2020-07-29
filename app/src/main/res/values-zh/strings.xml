@@ -32,7 +32,7 @@
     <string name="geoTips">提示：</string>
     <string name="geoBack">返回地理数据</string>
     <string name="geoNavBtn">返回</string>
-
+    <string name="geoCitySave">保存喜欢的城市</string>
 
 
 </resources>

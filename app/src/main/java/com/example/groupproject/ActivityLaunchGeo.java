@@ -7,6 +7,9 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -18,7 +21,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONObject;
@@ -46,7 +52,10 @@ public class ActivityLaunchGeo extends AppCompatActivity {
     Button searchBtn, showFavBtn, helpBtn;
     ProgressBar pBar;
     ArrayList<GeoCity> cityList;
+    ArrayList<GeoCity> favCityList;
     Bundle bundle;
+    SharedPreferences sharedPref = null;
+    private SQLiteDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,18 +70,65 @@ public class ActivityLaunchGeo extends AppCompatActivity {
         helpBtn = findViewById(R.id.helpButton);
 
         cityList = new ArrayList<>();
+        favCityList = new ArrayList<>();
         bundle = new Bundle();
+
+        sharedPref = getSharedPreferences("userInput", Context.MODE_PRIVATE);
+        String latText = sharedPref.getString("userLat","");
+        String longText = sharedPref.getString("userLong", "");
+
+        if (latText == null || longText == null) {
+            if(latText == null) {
+                Log.e("ACTIVITY_LAUNCH_GEO", "latText is null");
+                latText = "";
+            }
+            if(longText == null) {
+                Log.e("ACTIVITY_LAUNCH_GEO", "longText is null");
+                longText = "";
+            }
+        }
+
+        EditText latEditText = findViewById(R.id.latitudeField);
+        latEditText.setText(latText);
+
+        EditText longEditText = findViewById(R.id.longitudeField);
+        longEditText.setText(longText);
 
         searchBtn.setOnClickListener(bt -> {
             String lat = latField.getText().toString();
             String lng = lonField.getText().toString();
 
             if(!lat.isEmpty() && !lng.isEmpty()) {
+                cityList.clear();
+
                 String urlStr = new String("https://api.geodatasource.com/cities?key=BIWYTHEHQX0UOENOSAL1EOCF2VCSFHBW&lat="
                         + lat + "&lng=" + lng + "&format=xml");
                 Log.i(ACTIVITY_LAUNCH_GEO, "urlStr: " + urlStr);
                 CitySearchQuery query = new CitySearchQuery();
                 query.execute(urlStr);
+            }
+        });
+
+        showFavBtn.setOnClickListener(new AdapterView.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDB();
+
+                Log.e("ACTIVITY_LAUNCH_GEO", "favCityList size: " + favCityList.size());
+
+//                ListView cityListView = findViewById(R.id.resultListView);
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList("favCityList", favCityList);
+
+                /*
+                GeoCityListAdaptor cityListAdaptor = new GeoCityListAdaptor(ActivityLaunchGeo.this, R.layout.activity_geo_result, favCityList);
+                cityListView.setAdapter(cityListAdaptor);
+
+                FrameLayout frameLayout = findViewById(R.id.fragmentLocation);
+*/
+                Intent goToFavCities = new Intent (ActivityLaunchGeo.this, GeoCityDetailsView.class);
+                goToFavCities.putExtras(bundle);
+                startActivity(goToFavCities);
             }
         });
 
@@ -94,6 +150,26 @@ public class ActivityLaunchGeo extends AppCompatActivity {
                 dialog.show();
             }
         });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        sharedPref = getSharedPreferences("userInput", Context.MODE_PRIVATE);
+        SharedPreferences.Editor ed = sharedPref.edit();
+
+        EditText userLat = findViewById(R.id.latitudeField);
+        String latText = userLat.getText().toString();
+        Log.e(ACTIVITY_LAUNCH_GEO, "Lat is: " + latText);
+
+        EditText userLong = findViewById(R.id.longitudeField);
+        String longText = userLong.getText().toString();
+        Log.e(ACTIVITY_LAUNCH_GEO, "Long is: " + longText);
+
+        ed.putString("userLat", latText);
+        ed.putString("userLong", longText);
+        ed.commit();
     }
 
     protected class CitySearchQuery extends AsyncTask<String, Integer, String> {
@@ -189,32 +265,63 @@ public class ActivityLaunchGeo extends AppCompatActivity {
         }
     }
 
-    private void showCitySearchResult(String apiStr) {
-        try {
-            URL url = new URL(apiStr);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
-            conn.setRequestProperty("Accept", "application/json");
+    public void openDB() {
+        GeoCityDBOpener dbOpener = new GeoCityDBOpener(this);
+        db = dbOpener.getWritableDatabase();
 
-            if (conn.getResponseCode() != 200) {
-                throw new RuntimeException("Failed : HTTP error code : " + conn.getResponseCode());
-            }
+        // Get all the columns of the table
+        String [] columns = {GeoCityDBOpener.COL_ID, GeoCityDBOpener.COL_COUNTRY,
+                GeoCityDBOpener.COL_REGION, GeoCityDBOpener.COL_CITY, GeoCityDBOpener.COL_LATITUDE,
+                GeoCityDBOpener.COL_LONGITUDE, GeoCityDBOpener.COL_CURRENCY};
+        // Query all the results from the table
+        Cursor results = db.query(false, GeoCityDBOpener.TABLE_NAME, columns, null, null, null, null, null, null);
 
-            BufferedReader br = new BufferedReader(new InputStreamReader(
-                    (conn.getInputStream())));
+        while(results.moveToNext()) {
+            Log.e(ACTIVITY_LAUNCH_GEO, "" + results.getString(results.getColumnIndex(dbOpener.COL_COUNTRY)));
+            Log.e(ACTIVITY_LAUNCH_GEO, "" + results.getString(results.getColumnIndex(dbOpener.COL_REGION)));
+            Log.e(ACTIVITY_LAUNCH_GEO, "" + results.getString(results.getColumnIndex(dbOpener.COL_CITY)));
+            Log.e(ACTIVITY_LAUNCH_GEO, "" + results.getString(results.getColumnIndex(dbOpener.COL_LONGITUDE)));
+            Log.e(ACTIVITY_LAUNCH_GEO, "" + results.getString(results.getColumnIndex(dbOpener.COL_CURRENCY)));
 
-            String output;
+            Log.e(ACTIVITY_LAUNCH_GEO, "" + results.getString(results.getColumnIndex(dbOpener.COL_LATITUDE)));
 
-            while ((output = br.readLine()) != null) {
-                System.out.println(output);
-            }
-
-            conn.disconnect();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+            favCityList.add(new GeoCity(
+                    results.getString(results.getColumnIndex(dbOpener.COL_COUNTRY)),
+                    results.getString(results.getColumnIndex(dbOpener.COL_REGION)),
+                    results.getString(results.getColumnIndex(dbOpener.COL_CITY)),
+                    results.getString(results.getColumnIndex(dbOpener.COL_LATITUDE)),
+                    results.getString(results.getColumnIndex(dbOpener.COL_LONGITUDE)),
+                    results.getString(results.getColumnIndex(dbOpener.COL_CURRENCY))));
         }
-        pBar.setVisibility(View.INVISIBLE);
+
+        printCursor(results, db.getVersion());
+    }
+
+    private void printCursor(Cursor c, int version) {
+        Log.e(ACTIVITY_LAUNCH_GEO, "In printCursor");
+        Log.e(ACTIVITY_LAUNCH_GEO, "database version: " + version);
+        Log.e(ACTIVITY_LAUNCH_GEO, "num of cols: " + c.getColumnCount());
+        Log.e(ACTIVITY_LAUNCH_GEO, "num of rows: " + c.getCount());
+
+        int colCount = c.getColumnCount();
+
+        // Print out column names
+        String [] colNames = c.getColumnNames();
+        String nameRow = new String();
+        for (int i = 0; i < colCount; i++) {
+            nameRow = nameRow.concat(colNames[i] + "\t");
+        }
+        Log.e(ACTIVITY_LAUNCH_GEO, nameRow);
+
+        // Print out each row in the table
+        while(c.moveToNext()) {
+            String contentRow = new String();
+            for (int i = 0; i < colCount; i++) {
+                contentRow = contentRow.concat(c.getString(i) + "\t");
+            }
+            Log.e(ACTIVITY_LAUNCH_GEO, contentRow);
+        }
+
+        c.moveToFirst();
     }
 }
