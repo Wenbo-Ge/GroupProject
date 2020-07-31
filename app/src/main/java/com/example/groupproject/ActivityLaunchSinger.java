@@ -1,5 +1,6 @@
 package com.example.groupproject;
 
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,10 +19,12 @@ public class ActivityLaunchSinger extends AppCompatActivity {
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch_singer);
+
 
         Button searchButton;
         EditText searchField= null;
@@ -54,3 +57,4 @@ public class ActivityLaunchSinger extends AppCompatActivity {
 
 
 }
+
