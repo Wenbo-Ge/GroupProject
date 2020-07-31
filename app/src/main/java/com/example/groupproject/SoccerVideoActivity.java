@@ -1,11 +1,14 @@
 package com.example.groupproject;
 
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +22,9 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.snackbar.Snackbar;
+
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -31,12 +37,10 @@ import java.util.Arrays;
 
 public class SoccerVideoActivity extends AppCompatActivity {
     MyListAdapter myAdapter;
+    SoccerMyOpener dbOpener;
     SQLiteDatabase db;
     ListView myList;
-    SoccerMyOpener dbOpener;
-    Cursor results;
-    Button watchButton;
-    Switch savedSwitch;
+
     Button yourMatchButton;
 
     private ArrayList<SoccerVideo> elements = new ArrayList<>( Arrays.asList());
@@ -49,49 +53,26 @@ public class SoccerVideoActivity extends AppCompatActivity {
         matchQuery req = new matchQuery();
         req.execute();
 
+        dbOpener = new SoccerMyOpener(this);
+        db = dbOpener.getWritableDatabase();
+
         myList =  findViewById(R.id.theListView);
 
-//        loadDataFromDatabase();
 
 
+//        SoccerVideo soccerVideo = new SoccerVideo("ITALY: Serie A", "Napoli - AC Milian","2020-07-09T17:00", "AC Milan", "Juventus", "https:\\/\\/www.scorebat.com\\/ac-milan-vs-juventus-live-stream\\/");
 
-        myList.setAdapter( myAdapter = new MyListAdapter() );
+//        elements.add(soccerVideo);
 
-        SoccerVideo soccerVideo = new SoccerVideo("ITALY: Serie A", "Napoli - AC Milian","2020-07-09T17:00", "AC Milan", "Juventus", "https:\\/\\/www.scorebat.com\\/ac-milan-vs-juventus-live-stream\\/");
+//        myAdapter.notifyDataSetChanged();
 
-        elements.add(soccerVideo);
-
-        myAdapter.notifyDataSetChanged();
-
-//        refreshButton = findViewById(R.id.button2);
-
-//        savedSwitch = findViewById(R.id.save);
-
-//        watchButton = findViewById(R.id.watch);
-
-        yourMatchButton = findViewById(R.id.button3);
+        yourMatchButton = findViewById(R.id.matches);
 
 
+        yourMatchButton.setOnClickListener(bt -> {
+            startActivity(new Intent(SoccerVideoActivity.this, SoccerSavedMatches.class));
+        });
 
-//        savedSwitch.setOnCheckedChangeListener((cb, isChecked) -> {
-//            ContentValues newRowValues = new ContentValues();
-//
-//            newRowValues.put(SoccerMyOpener.COL_COUNTRY, "ITALY: Serie A");
-//            newRowValues.put(SoccerMyOpener.COL_DATE, "2020-07-09T17:00");
-//            newRowValues.put(SoccerMyOpener.COL_SIDE1, "AC Milan");
-//            newRowValues.put(SoccerMyOpener.COL_SIDE2, "Juventus");
-//            newRowValues.put(SoccerMyOpener.COL_EMBED, "https:\\/\\/www.scorebat.com\\/ac-milan-vs-juventus-live-stream\\/");
-//
-//
-//            long newId = db.insert(SoccerMyOpener.TABLE_NAME, null, newRowValues);
-//            SoccerVideo soccerVideo = new SoccerVideo("ITALY: Serie A", "2020-07-09T17:00", "AC Milan", "Juventus", "https:\\/\\/www.scorebat.com\\/ac-milan-vs-juventus-live-stream\\/", newId);
-//
-//            elements.add(soccerVideo);
-//            myAdapter.notifyDataSetChanged();
-//        });
-
-//        savedButton.setOnClickListener( click -> {
-//        });
 
 //        watchButton.setOnClickListener( click -> {
 //
@@ -99,10 +80,10 @@ public class SoccerVideoActivity extends AppCompatActivity {
 
 
         myList.setOnItemClickListener( (parent, view, pos, id) -> {
-
             showDetail( pos );
-
         });
+
+
 
 
     }
@@ -126,22 +107,36 @@ public class SoccerVideoActivity extends AppCompatActivity {
         side1View.setText(selectedMatch.getSide1());
         side2View.setText(selectedMatch.getSide2());
 
+
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Match Details")
                 .setView(detail_view) //add the 3 edit texts showing the contact information
-                .setNegativeButton("Delete", (click, b) -> {
+                .setNegativeButton("dismiss", (click, b) -> { })
+                .setPositiveButton("save", (click, b) -> {
+                    ContentValues newRowValues = new ContentValues();
 
-                    elements.remove(pos); //remove the contact from contact list
-                    myAdapter.notifyDataSetChanged(); //there is one less item so update the list
+                    newRowValues.put(SoccerMyOpener.COL_COUNTRY, selectedMatch.getCountry());
+                    newRowValues.put(SoccerMyOpener.COL_TITLE, selectedMatch.getTitle());
+                    newRowValues.put(SoccerMyOpener.COL_DATE, selectedMatch.getDate());
+                    newRowValues.put(SoccerMyOpener.COL_SIDE1, selectedMatch.getSide1());
+                    newRowValues.put(SoccerMyOpener.COL_SIDE2, selectedMatch.getSide2());
+                    newRowValues.put(SoccerMyOpener.COL_EMBED, selectedMatch.getEmbed());
+
+                   db.insert(SoccerMyOpener.TABLE_NAME, null, newRowValues);
+
                 })
-                .setNeutralButton("dismiss", (click, b) -> { })
+                .setNeutralButton("watch highlight", (click, b) -> {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.scorebat.com/embed/g/821217/?s=2")));
+                })
+//                .setNeutralButton("dismiss", (click, b) -> { })
                 .create().show();
     }
 
     private class matchQuery extends AsyncTask< String, Integer, String>
     {
 
-        String side1, side2, country, matchDate, videoUrl;
+        String title, side1, side2, country, matchDate, videoUrl;
 
         //Type3                Type1
         protected String doInBackground(String ... args)
@@ -166,28 +161,49 @@ public class SoccerVideoActivity extends AppCompatActivity {
                 StringBuilder sb = new StringBuilder();
 
                 String line = null;
-                while ((line = reader.readLine()) != null)
-                {
+                int lineNumber;
+
+                line = reader.readLine();
+                for (lineNumber = 0; lineNumber < 37; lineNumber++) {
+                    line = reader.readLine();
                     sb.append(line + "\n");
                 }
+                    sb.append("}");
+//                while ((line = reader.readLine()) != null)
+//                {
+//
+//                    Log.i("result", sb.toString());
+//                }
                 String result = sb.toString(); //result is the whole string
+                Log.i("result", result);
+
 
 
 //                 convert string to JSON: Look at slide 27:
-                JSONObject matchJson = new JSONObject(result);
+                try {
+                    JSONObject matchJson = new JSONObject(result);
+                    JSONObject side1Json = matchJson.getJSONObject("side1");
+                    JSONObject side2Json = matchJson.getJSONObject("side1");
+                    JSONObject competitionJson = matchJson.getJSONObject("competition");
 
 //                get the double associated with "value"
-                side1 = matchJson.getString("side1");
-                side2 = matchJson.getString("side2");
-                country = matchJson.getString("competition");
-                matchDate = matchJson.getString("date");
-                videoUrl = matchJson.getString("url");
+                    title = matchJson.getString("title");
+                    side1 = side1Json.getString("name");
+                    side2 = side2Json.getString("name");
+                    country = competitionJson.getString("name");
+                    matchDate = matchJson.getString("date");
+                    videoUrl = matchJson.getString("embed");
 
-//                SoccerVideo soccerVideo = new SoccerVideo("ITALY: Serie A", "2020-07-09T17:00", "AC Milan", "Juventus", "https:\\/\\/www.scorebat.com\\/ac-milan-vs-juventus-live-stream\\/");
-//
-//                elements.add(soccerVideo);
-//
-//                myAdapter.notifyDataSetChanged();
+                    SoccerVideo soccerVideo = new SoccerVideo(country, title, matchDate, side1, side2, videoUrl);
+
+                    elements.add(soccerVideo);
+
+                    myAdapter.notifyDataSetChanged();
+                } catch (Throwable t){
+                    Log.e("JSON Error", "error");
+                }
+
+
 
 
 
@@ -211,7 +227,7 @@ public class SoccerVideoActivity extends AppCompatActivity {
         //Type3
         public void onPostExecute(String fromDoInBackground)
         {
-//            myList.setAdapter( myAdapter = new MyListAdapter() );
+            myList.setAdapter( myAdapter = new MyListAdapter() );
 
         }
     }
@@ -250,49 +266,8 @@ public class SoccerVideoActivity extends AppCompatActivity {
         }
     }
 
-    private void loadDataFromDatabase()
-    {
-
-        dbOpener = new SoccerMyOpener(this);
-        db = dbOpener.getWritableDatabase();
 
 
-        String [] columns = {SoccerMyOpener.COL_ID, SoccerMyOpener.COL_COUNTRY, SoccerMyOpener.COL_DATE, SoccerMyOpener.COL_SIDE1, SoccerMyOpener.COL_SIDE2, SoccerMyOpener.COL_EMBED};
-
-        results = db.query(false, SoccerMyOpener.TABLE_NAME, columns, null, null, null, null, null, null);
-
-
-        int countryColumnIndex = results.getColumnIndex(SoccerMyOpener.COL_COUNTRY);
-        int titleColumnIndex = results.getColumnIndex(SoccerMyOpener.COL_TITLE);
-        int dateColumnIndex = results.getColumnIndex(SoccerMyOpener.COL_DATE);
-        int side1ColumnIndex = results.getColumnIndex(SoccerMyOpener.COL_SIDE1);
-        int side2ColumnIndex = results.getColumnIndex(SoccerMyOpener.COL_SIDE2);
-        int embedColumnIndex = results.getColumnIndex(SoccerMyOpener.COL_EMBED);
-        int idColIndex = results.getColumnIndex(SoccerMyOpener.COL_ID);
-
-
-        while(results.moveToNext())
-        {
-            String country = results.getString(countryColumnIndex);
-            String title = results.getString(titleColumnIndex);
-            String date = results.getString(dateColumnIndex);
-            String side1 = results.getString(side1ColumnIndex);
-            String side2 = results.getString(side2ColumnIndex);
-            String embed = results.getString(embedColumnIndex);
-            long id = results.getLong(idColIndex);
-
-
-            elements.add(new SoccerVideo(country, title, date, side1, side2, embed, id));
-//            printCursor(results,db.getVersion());
-
-        }
-
-    }
-
-    protected void deleteVideo(SoccerVideo m)
-    {
-        db.delete(SoccerMyOpener.TABLE_NAME, SoccerMyOpener.COL_ID + "= ?", new String[] {Long.toString(m.getId())});
-    }
 
 //    protected void printCursor (Cursor c, int version) {
 //        int messageColumnIndex = c.getColumnIndex(MyOpener.COL_MESSAGE);

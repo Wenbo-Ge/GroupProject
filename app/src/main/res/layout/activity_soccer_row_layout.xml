@@ -13,7 +13,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="title"
+            android:text="@string/soccer_title"
             android:gravity="center"/>
 
 

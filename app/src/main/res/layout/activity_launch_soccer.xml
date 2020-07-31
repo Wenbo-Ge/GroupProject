@@ -8,19 +8,19 @@
         android:id="@+id/textView5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/Password" />
+        android:text="@string/soccerPassword" />
 
     <EditText
         android:id="@+id/textView6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
-        android:hint="@string/InputPassword" />
+        android:hint="@string/soccerInputPassword" />
 
     <Button
         android:id="@+id/button3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/login" />
+        android:text="@string/soccerLogin" />
 
 </LinearLayout>

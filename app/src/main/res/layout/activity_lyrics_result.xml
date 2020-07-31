@@ -6,41 +6,14 @@
     android:orientation="vertical"
     tools:context=".LyricsResultActivity">
 
-
-    <TextView
-        android:id="@+id/textViewLSTitle"
-        android:layout_width="wrap_content"
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-        />
+        android:id="@+id/toolbarLSResult"/>
 
-    <TextView
-        android:id="@+id/textViewLSArtist"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="14sp"
-        />
-
-    <ToggleButton
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:id="@+id/toggleButtonLSFavorite"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:textOn=""
-        android:textOff=""/>
-
-    <TextView
-        android:id="@+id/textViewLSLyrics"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.1"
-        />
-
-    <Button
-        android:id="@+id/buttonLSWebSearch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/buttonLSWebSearch" />
-
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/fragmentLocation"/>
 </LinearLayout>
+
