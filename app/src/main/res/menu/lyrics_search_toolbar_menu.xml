@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/menuLSsoccer"
+        android:title="@string/menuSoccer"
+        android:icon="@drawable/barca"
+        android:orderInCategory="100"
+        app:showAsAction="always"/>
+
+
+    <item android:id="@+id/menuLSgeo"
+        android:orderInCategory="50"
+        android:icon="@drawable/earth"
+        app:showAsAction="always"
+        android:title="@string/menuGeo"/>
+
+    <item android:id="@+id/menuLSdeezer"
+        android:orderInCategory="50"
+        android:icon="@drawable/man"
+        app:showAsAction="always"
+        android:title="@string/menuDeezer"/>
+
+    <item android:id="@+id/menuLSabout"
+        android:title="@string/menuLSabout"
+        app:showAsAction="never"
+        android:orderInCategory="400"/>
+
+</menu>
