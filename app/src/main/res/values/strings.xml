@@ -23,6 +23,7 @@
     <string name="geoBack">Back to Geo</string>
     <string name="geoNavBtn">Back</string>
     <string name="geoCitySave">Save as Favorite</string>
+    <string name="showOnMap">Show on Google Map</string>
 
     <!-- Song Lyrics Search -->
     <string name="textViewLSTitle">Song Title</string>

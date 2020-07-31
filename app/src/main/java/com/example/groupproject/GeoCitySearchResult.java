@@ -18,6 +18,7 @@ import java.util.ArrayList;
 public class GeoCitySearchResult extends AppCompatActivity {
     private static final String GEO_CITY_SEARCH_RESULT = "GEO_CITY_SEARCH_RESULT";
     private GeoCityListAdaptor cityListAdaptor;
+    ArrayList<GeoCity> cityList;
     private boolean onTablet;
     private Bundle bundle;
     private static int cityIndex;
@@ -29,7 +30,13 @@ public class GeoCitySearchResult extends AppCompatActivity {
 
         ListView cityListView = findViewById(R.id.resultListView);
         bundle = getIntent().getExtras();
-        ArrayList<GeoCity> cityList = bundle.getParcelableArrayList("cityList");
+
+        if(bundle.get("cityList") != null) {
+           cityList = bundle.getParcelableArrayList("cityList");
+        }
+        if(bundle.get("favCityList") != null) {
+            cityList = bundle.getParcelableArrayList("favCityList");
+        }
 
         cityListAdaptor = new GeoCityListAdaptor(this, R.layout.activity_geo_result, cityList);
         cityListView.setAdapter(cityListAdaptor);
@@ -59,7 +66,8 @@ public class GeoCitySearchResult extends AppCompatActivity {
                 else {
                     Log.i(GEO_CITY_SEARCH_RESULT, "On phone");
                     cityIndex = i;
-                    Intent goToFragment = new Intent (GeoCitySearchResult.this, GeoCityDetailsView.class);
+                    Intent goToFragment;
+                    goToFragment = new Intent(GeoCitySearchResult.this, GeoCityDetailsView.class);
                     goToFragment.putExtras(bundle);
                     startActivity(goToFragment);
                 }

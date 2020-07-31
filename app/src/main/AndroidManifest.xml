@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".GeoCityDetailsView"></activity>
+        <activity android:name=".GeoFavCityDetailsView"></activity>
+        <activity android:name=".GeoCityDetailsView" />
         <activity android:name=".LyricsResultActivity" />
         <activity android:name=".ActivityLaunchSinger" />
         <activity android:name=".ActivityLaunchLyrics" />

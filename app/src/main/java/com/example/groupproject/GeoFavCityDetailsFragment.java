@@ -26,9 +26,9 @@ import java.util.ArrayList;
 
 import static android.content.pm.PackageManager.*;
 
-public class GeoCityDetailsFragment extends Fragment {
+public class GeoFavCityDetailsFragment extends Fragment {
 
-    private static final String GEO_CITY_FRAGMENT = "GEO_CITY_FRAGMENT";
+    private static final String GEO_FAV_CITY_FRAGMENT = "GEO_FAV_CITY_FRAGMENT";
     private ArrayList<GeoCity> cityList;
     private int index;
     private SQLiteDatabase db;
@@ -68,10 +68,10 @@ public class GeoCityDetailsFragment extends Fragment {
         TextView currency = (TextView)result.findViewById(R.id.currency);
         currency.setText(cityList.get(index).getCurrency());
 
-        Button saveButton = (Button)result.findViewById(R.id.savToFav);
-        saveButton.setOnClickListener(bt -> {
+        Button rmButton = (Button)result.findViewById(R.id.rmFromFav);
+        rmButton.setOnClickListener(bt -> {
             openDB();
-
+            /*
             ContentValues newRow = new ContentValues();
             newRow.put(GeoCityDBOpener.COL_COUNTRY, cityList.get(index).getCountry());
             newRow.put(GeoCityDBOpener.COL_REGION, cityList.get(index).getRegion());
@@ -79,18 +79,10 @@ public class GeoCityDetailsFragment extends Fragment {
             newRow.put(GeoCityDBOpener.COL_LATITUDE, cityList.get(index).getLatitude());
             newRow.put(GeoCityDBOpener.COL_LONGITUDE, cityList.get(index).getLongitude());
             newRow.put(GeoCityDBOpener.COL_CURRENCY, cityList.get(index).getCurrency());
-
-            long newId = db.insert(GeoCityDBOpener.TABLE_NAME, null, newRow);
-            Log.i(GEO_CITY_FRAGMENT, "newId: " + newId);
-            Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
-        });
-
-        Button mapButton = (Button)result.findViewById(R.id.showOnMap);
-        mapButton.setOnClickListener(bt -> {
-            Log.e(GEO_CITY_FRAGMENT, "Launching Google Maps, lat=" + lat + ", lng=" + lng);
-            Uri gmmIntentUri = Uri.parse("https://www.google.com/maps/search/?api=1&query="+lat+","+lng);
-            Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-            startActivity(mapIntent);
+*/
+//            long newId = db.delete(GeoCityDBOpener.TABLE_NAME, ""cityList.get(index).getCity(), null);
+//            Log.i(GEO_FAV_CITY_FRAGMENT, "newId: " + newId);
+            Toast.makeText(getContext(), "Deleted", Toast.LENGTH_SHORT).show();
         });
 
         return result;
@@ -110,10 +102,10 @@ public class GeoCityDetailsFragment extends Fragment {
     }
 
     private void printCursor(Cursor c, int version) {
-        Log.e(GEO_CITY_FRAGMENT, "In printCursor");
-        Log.e(GEO_CITY_FRAGMENT, "database version: " + version);
-        Log.e(GEO_CITY_FRAGMENT, "num of cols: " + c.getColumnCount());
-        Log.e(GEO_CITY_FRAGMENT, "num of rows: " + c.getCount());
+        Log.e(GEO_FAV_CITY_FRAGMENT, "In printCursor");
+        Log.e(GEO_FAV_CITY_FRAGMENT, "database version: " + version);
+        Log.e(GEO_FAV_CITY_FRAGMENT, "num of cols: " + c.getColumnCount());
+        Log.e(GEO_FAV_CITY_FRAGMENT, "num of rows: " + c.getCount());
 
         int colCount = c.getColumnCount();
 
@@ -123,7 +115,7 @@ public class GeoCityDetailsFragment extends Fragment {
         for (int i = 0; i < colCount; i++) {
             nameRow = nameRow.concat(colNames[i] + "\t");
         }
-        Log.e(GEO_CITY_FRAGMENT, nameRow);
+        Log.e(GEO_FAV_CITY_FRAGMENT, nameRow);
 
         // Print out each row in the table
         while(c.moveToNext()) {
@@ -131,7 +123,7 @@ public class GeoCityDetailsFragment extends Fragment {
             for (int i = 0; i < colCount; i++) {
                 contentRow = contentRow.concat(c.getString(i) + "\t");
             }
-            Log.e(GEO_CITY_FRAGMENT, contentRow);
+            Log.e(GEO_FAV_CITY_FRAGMENT, contentRow);
         }
 
         c.moveToFirst();

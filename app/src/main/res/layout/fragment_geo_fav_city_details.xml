@@ -45,21 +45,11 @@
         android:layout_below="@id/longitude" />
 
     <Button
-        android:id="@+id/savToFav"
+        android:id="@+id/rmFromFav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/geoCitySave"
+        android:text="@string/geoRemoveFav"
         android:layout_alignParentBottom="true" />
-    <!--
-    android:background="#A38CC5"
-    android:textColor="#F7F3FB" -->
-
-    <Button
-        android:id="@+id/showOnMap"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/showOnMap"
-        android:layout_above="@id/savToFav" />
     <!--
     android:background="#A38CC5"
     android:textColor="#F7F3FB" -->

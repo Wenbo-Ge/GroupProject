@@ -2,6 +2,7 @@
 package com.example.groupproject;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -62,6 +63,10 @@ public class ActivityLaunchGeo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch_geo);
 
+        //This gets the toolbar from the layout:
+        Toolbar tBar = (Toolbar)findViewById(R.id.geo_toolbar);
+        setSupportActionBar(tBar);
+
         latField = findViewById(R.id.latitudeField);
         lonField = findViewById(R.id.longitudeField);
         searchBtn = findViewById(R.id.searchButton);
@@ -116,17 +121,10 @@ public class ActivityLaunchGeo extends AppCompatActivity {
 
                 Log.e("ACTIVITY_LAUNCH_GEO", "favCityList size: " + favCityList.size());
 
-//                ListView cityListView = findViewById(R.id.resultListView);
                 Bundle bundle = new Bundle();
                 bundle.putParcelableArrayList("favCityList", favCityList);
 
-                /*
-                GeoCityListAdaptor cityListAdaptor = new GeoCityListAdaptor(ActivityLaunchGeo.this, R.layout.activity_geo_result, favCityList);
-                cityListView.setAdapter(cityListAdaptor);
-
-                FrameLayout frameLayout = findViewById(R.id.fragmentLocation);
-*/
-                Intent goToFavCities = new Intent (ActivityLaunchGeo.this, GeoCityDetailsView.class);
+                Intent goToFavCities = new Intent (ActivityLaunchGeo.this, GeoCitySearchResult.class);
                 goToFavCities.putExtras(bundle);
                 startActivity(goToFavCities);
             }
@@ -151,6 +149,7 @@ public class ActivityLaunchGeo extends AppCompatActivity {
             }
         });
     }
+
 
     @Override
     protected void onPause() {
@@ -224,7 +223,7 @@ public class ActivityLaunchGeo extends AppCompatActivity {
                     }
 
                     if(newCity) {
-                        cityList.add(new GeoCity(country, region, city, currency, latitude, longitude));
+                        cityList.add(new GeoCity(country, region, city, latitude, longitude, currency));
                         newCity = false;
 
                         if(progress < 100 - increment) {
@@ -276,14 +275,16 @@ public class ActivityLaunchGeo extends AppCompatActivity {
         // Query all the results from the table
         Cursor results = db.query(false, GeoCityDBOpener.TABLE_NAME, columns, null, null, null, null, null, null);
 
+        favCityList.clear();
         while(results.moveToNext()) {
+ /*
             Log.e(ACTIVITY_LAUNCH_GEO, "" + results.getString(results.getColumnIndex(dbOpener.COL_COUNTRY)));
             Log.e(ACTIVITY_LAUNCH_GEO, "" + results.getString(results.getColumnIndex(dbOpener.COL_REGION)));
             Log.e(ACTIVITY_LAUNCH_GEO, "" + results.getString(results.getColumnIndex(dbOpener.COL_CITY)));
+            Log.e(ACTIVITY_LAUNCH_GEO, "" + results.getString(results.getColumnIndex(dbOpener.COL_LATITUDE)));
             Log.e(ACTIVITY_LAUNCH_GEO, "" + results.getString(results.getColumnIndex(dbOpener.COL_LONGITUDE)));
             Log.e(ACTIVITY_LAUNCH_GEO, "" + results.getString(results.getColumnIndex(dbOpener.COL_CURRENCY)));
-
-            Log.e(ACTIVITY_LAUNCH_GEO, "" + results.getString(results.getColumnIndex(dbOpener.COL_LATITUDE)));
+*/
 
             favCityList.add(new GeoCity(
                     results.getString(results.getColumnIndex(dbOpener.COL_COUNTRY)),
