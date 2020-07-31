@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <string name="artistName">歌手或者组合名称</string>
+    <string name="hintMessage">请输入歌手或者组合名称</string>
+    <string name="searchSinger">搜索</string>
+    <string name="loadHint">读取中....</string>
+    <string name="saveButton">保存</string>
+    <string name="favourButton">您的最爱</string>
+    <string name="title">名称</string>
+    <string name="duration">时长：</string>
+    <string name="albumName">专辑名</string>
+    <string name="albumCover">专辑封面</string>
+    <string name="saveAlbumDetails">保存信息</string>
+
     <string name="app_name">小组项目</string>
     <string name="menuSoccer">足球比赛搜索</string>
     <string name="menuGeo">城市搜索</string>
@@ -65,6 +78,7 @@
     <string name="soccer_your_match">你的最爱</string>
     <string name="soccer_title">对战</string>
     <string name="soccer_loading">loading</string>
+
 
 
 </resources>
