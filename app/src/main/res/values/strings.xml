@@ -28,6 +28,8 @@
     <string name="soccer_your_match">Your match</string>
     <string name="soccer_title">title</string>
     <string name="soccer_loading">loading</string>
+    <string name="soccer_open">Open</string>
+    <string name="soccer_close">Close</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="soccer_hello_blank_fragment">Hello blank fragment</string>
     <string name="soccerHighlights">Highlights</string>

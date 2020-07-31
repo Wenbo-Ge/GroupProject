@@ -10,6 +10,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -18,10 +21,16 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
@@ -35,11 +44,12 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class SoccerVideoActivity extends AppCompatActivity {
+public class SoccerVideoActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     MyListAdapter myAdapter;
     SoccerMyOpener dbOpener;
     SQLiteDatabase db;
     ListView myList;
+    Toolbar tBar;
 
     Button yourMatchButton;
 
@@ -58,14 +68,6 @@ public class SoccerVideoActivity extends AppCompatActivity {
 
         myList =  findViewById(R.id.theListView);
 
-
-
-//        SoccerVideo soccerVideo = new SoccerVideo("ITALY: Serie A", "Napoli - AC Milian","2020-07-09T17:00", "AC Milan", "Juventus", "https:\\/\\/www.scorebat.com\\/ac-milan-vs-juventus-live-stream\\/");
-
-//        elements.add(soccerVideo);
-
-//        myAdapter.notifyDataSetChanged();
-
         yourMatchButton = findViewById(R.id.matches);
 
 
@@ -74,17 +76,24 @@ public class SoccerVideoActivity extends AppCompatActivity {
         });
 
 
-//        watchButton.setOnClickListener( click -> {
-//
-//        });
-
-
         myList.setOnItemClickListener( (parent, view, pos, id) -> {
             showDetail( pos );
         });
 
+        tBar = (Toolbar)findViewById(R.id.toolbar);
 
+        //This loads the toolbar, which calls onCreateOptionsMenu below:
+        setSupportActionBar(tBar);
 
+        //For NavigationDrawer:
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
+                drawer, tBar, R.string.soccer_open, R.string.soccer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
     }
 
@@ -127,7 +136,7 @@ public class SoccerVideoActivity extends AppCompatActivity {
 
                 })
                 .setNeutralButton("watch highlight", (click, b) -> {
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.scorebat.com/embed/g/821217/?s=2")));
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(selectedMatch.getEmbed())));
                 })
 //                .setNeutralButton("dismiss", (click, b) -> { })
                 .create().show();
@@ -161,19 +170,12 @@ public class SoccerVideoActivity extends AppCompatActivity {
                 StringBuilder sb = new StringBuilder();
 
                 String line = null;
-                int lineNumber;
 
-                line = reader.readLine();
-                for (lineNumber = 0; lineNumber < 37; lineNumber++) {
-                    line = reader.readLine();
+                while ((line = reader.readLine()) != null)
+                {
                     sb.append(line + "\n");
+
                 }
-                    sb.append("}");
-//                while ((line = reader.readLine()) != null)
-//                {
-//
-//                    Log.i("result", sb.toString());
-//                }
                 String result = sb.toString(); //result is the whole string
                 Log.i("result", result);
 
@@ -181,7 +183,10 @@ public class SoccerVideoActivity extends AppCompatActivity {
 
 //                 convert string to JSON: Look at slide 27:
                 try {
-                    JSONObject matchJson = new JSONObject(result);
+                    JSONArray matchArray = new JSONArray(result);
+                    for (int i = 0; i < matchArray.length(); i ++) {
+                        JSONObject matchJson = matchArray.getJSONObject(i);
+
                     JSONObject side1Json = matchJson.getJSONObject("side1");
                     JSONObject side2Json = matchJson.getJSONObject("side1");
                     JSONObject competitionJson = matchJson.getJSONObject("competition");
@@ -192,21 +197,16 @@ public class SoccerVideoActivity extends AppCompatActivity {
                     side2 = side2Json.getString("name");
                     country = competitionJson.getString("name");
                     matchDate = matchJson.getString("date");
-                    videoUrl = matchJson.getString("embed");
+                    videoUrl = matchJson.getString("url");
 
-                    SoccerVideo soccerVideo = new SoccerVideo(country, title, matchDate, side1, side2, videoUrl);
+                    SoccerVideo soccerVideo = new SoccerVideo(country, title, matchDate, side1, side2, videoUrl, i);
 
                     elements.add(soccerVideo);
-
+                    }
                     myAdapter.notifyDataSetChanged();
                 } catch (Throwable t){
                     Log.e("JSON Error", "error");
                 }
-
-
-
-
-
 
             }
             catch (Exception e)
@@ -237,6 +237,72 @@ public class SoccerVideoActivity extends AppCompatActivity {
         super.onBackPressed();
         startActivity(new Intent(SoccerVideoActivity.this, ActivityLaunchSoccer.class));
         finish();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the soccer_menu items for use in the action bar
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.soccer_menu, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        String message = null;
+        //Look at your soccer_menu XML file. Put a case for every id in that file:
+        switch(item.getItemId())
+        {
+            //what to do when the soccer_menu item is selected:
+            case R.id.soccerMap:
+                startActivity(new Intent(SoccerVideoActivity.this, ActivityLaunchGeo.class));
+                break;
+            case R.id.soccerSong:
+                startActivity(new Intent(SoccerVideoActivity.this, ActivityLaunchSinger.class));
+                break;
+            case R.id.soccerLyrics:
+                startActivity(new Intent(SoccerVideoActivity.this, ActivityLaunchLyrics.class));
+                break;
+            case R.id.soccerInfoField:
+                message = "This is the Soccer activity, written by Wenbo Ge";
+                Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+                break;
+        }
+
+        return true;
+    }
+
+    @Override
+    public boolean onNavigationItemSelected( MenuItem item) {
+
+        switch(item.getItemId())
+        {
+            case R.id.soccerHeaderInstruction:
+                AlertDialog.Builder builderInstruction = new AlertDialog.Builder(this);
+                builderInstruction.setTitle("Instruction")
+                        .setMessage("Please first login \n" +
+                                "Select the match you are interested \n" +
+                                "You can click 'Watch your match' to checked saved matches") //add the 3 edit texts showing the contact information
+                        .setNegativeButton("dismiss", (click, b) -> { })
+                        .create().show();
+                break;
+            case R.id.soccerHeaderAPI:
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.scorebat.com/video-api/v1/")));
+                break;
+            case R.id.soccerHeaderDonate:
+                AlertDialog.Builder builderDonate = new AlertDialog.Builder(this);
+                builderDonate.setView(getLayoutInflater().inflate(R.layout.activity_soccer_donate, null))
+                        .setNegativeButton("Cancel", (click, b) -> { })
+                        .setPositiveButton("Thank you", (click, b) -> { })
+                        .create().show();
+                break;
+        }
+
+        DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
+        drawerLayout.closeDrawer(GravityCompat.START);
+
+        return true;
     }
 
 

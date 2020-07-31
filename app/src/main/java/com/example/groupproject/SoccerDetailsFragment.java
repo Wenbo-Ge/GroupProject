@@ -71,7 +71,7 @@ public class SoccerDetailsFragment extends Fragment {
 
         //show the video
         WebView highlight = (WebView) result.findViewById(R.id.webView);
-        highlight.loadData(videoHtml, "text/html", null);
+        highlight.loadUrl(videoHtml);
 
 
 
