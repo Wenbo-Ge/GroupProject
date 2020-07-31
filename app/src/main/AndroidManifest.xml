@@ -12,6 +12,8 @@
         android:supportsRtl="true"
         android:hardwareAccelerated="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".GeoFavCityDetailsView"></activity>
+        <activity android:name=".GeoCityDetailsView" />
         <activity android:name=".SoccerSavedMatches"></activity>
         <activity android:name=".LyricsResultActivity" />
         <activity android:name=".ActivityLaunchSinger" />

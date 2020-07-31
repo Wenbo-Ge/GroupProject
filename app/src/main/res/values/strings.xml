@@ -28,12 +28,16 @@
     <string name="geoFav">SHOW FAVORITE CITIES</string>
     <string name="geoHelp">HELP</string>
     <string name="gotoMap">HELP</string>
-    <string name="geoFavCity">Save to Favorite</string>
+    <string name="geoFavCity">Favorite Cities</string>
     <string name="geoRemoveFav">Remove from Favorites</string>
     <string name="geoHelpMsg">Type in a latitude e.g. 45.424721, a longitude e.g. -75.695000 (City of Ottawa) to find out its nearby cities</string>
     <string name="geoTips">Tips:</string>
     <string name="geoBack">Back to Geo</string>
     <string name="geoNavBtn">Back</string>
+    <string name="geoCitySave">Save as Favorite</string>
+    <string name="showOnMap">Show on Google Map</string>
+     <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- Song Lyrics Search -->
     <string name="textViewLSTitle">Song Title</string>
@@ -51,6 +55,7 @@
     <string name="alertTitleLSFavList">Do you want to remove this song from the favorite list?</string>
     <string name="buttonLSAlertYes">Yes</string>
     <string name="buttonLSAlertNo">No</string>
+
     <string name="checkboxLSLastSearch">Load last search</string>
     <string name="toastLSNotFound">Lyrics not found</string>
     <string name="menuLSabout">About this project</string>
@@ -63,6 +68,7 @@
     <string name="alertHelpTitleLS">Instructions</string>
     <string name="alertHelpTextLS">Main View\n* Enter artist/band name and song name in the input boxes and click search button to get the lyrics\n* Check "load last search" box to redo the last search\n* You can also click any item in the favorite list to view the lyrics saved locally\n* Long click items in the favorite list will bring up a dialog for deleting the song from the list\n\nLyrics View\n* Click the heart button will add/remove the song into/from the favorite list\n* Click the google button will bring up the google search page for the song
     </string>
+    
     <string name="buttonLSAlertOk">OK</string>
     <string name="alertDonateTitleLS">Please give generou$ly</string>
     <string name="alertDonateMessageLS">How much money do you want to donate?</string>
@@ -71,6 +77,8 @@
     <string name="textEditDonateLS">$$$</string>
 
 
+
     <!-- Deezer song search api -->
+
 
 </resources>

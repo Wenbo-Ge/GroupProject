@@ -7,7 +7,7 @@ public class GeoCity implements Parcelable {
     protected String country, region, city, latitude, longitude, currency;
     protected int index;
 
-    public GeoCity (String country, String region, String city, String currency, String latitude, String longitude) {
+    public GeoCity (String country, String region, String city, String latitude, String longitude, String currency) {
         this.country = country;
         this.region = region;
         this.city = city;
@@ -50,6 +50,25 @@ public class GeoCity implements Parcelable {
         return city;
     }
 
+    public String getCountry() {
+        return country;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
     @Override
     public int describeContents() {
         return 0;

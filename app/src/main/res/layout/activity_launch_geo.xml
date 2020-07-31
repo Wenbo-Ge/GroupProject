@@ -7,6 +7,11 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/geo_toolbar"/>
+
     <TextView
         android:id="@+id/welcomeText"
         android:layout_width="match_parent"
@@ -51,7 +56,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/geoFav" />
-
+    
     <Button
         android:id="@+id/helpButton"
         android:layout_width="match_parent"
