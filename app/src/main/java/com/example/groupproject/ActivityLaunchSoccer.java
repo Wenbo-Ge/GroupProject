@@ -38,10 +38,16 @@ public class ActivityLaunchSoccer extends AppCompatActivity implements Navigatio
 
         tBar = (Toolbar)findViewById(R.id.toolbar);
 
-        //This loads the toolbar, which calls onCreateOptionsMenu below:
+        /**
+         * This loads the toolbar, which calls onCreateOptionsMenu below:
+         */
+
         setSupportActionBar(tBar);
 
-        //For NavigationDrawer:
+        /**
+         * For NavigationDrawer:
+         */
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
                 drawer, tBar, R.string.soccer_open, R.string.soccer_close);
@@ -51,7 +57,10 @@ public class ActivityLaunchSoccer extends AppCompatActivity implements Navigatio
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //launch loading page
+        /**
+         * launch loading page
+         */
+
 
         goToLoading = new Intent(ActivityLaunchSoccer.this, SoccerLoading.class);
 
@@ -90,7 +99,10 @@ public class ActivityLaunchSoccer extends AppCompatActivity implements Navigatio
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the soccer_menu items for use in the action bar
+        /**
+         * Inflate the soccer_menu items for use in the action bar
+         */
+
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.soccer_menu, menu);
 
@@ -100,10 +112,16 @@ public class ActivityLaunchSoccer extends AppCompatActivity implements Navigatio
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         String message = null;
-        //Look at your soccer_menu XML file. Put a case for every id in that file:
+        /**
+         * Look at your soccer_menu XML file. Put a case for every id in that file:
+         */
+
         switch(item.getItemId())
         {
-            //what to do when the soccer_menu item is selected:
+            /**
+             * what to do when the soccer_menu item is selected:
+             */
+
             case R.id.soccerMap:
                 startActivity(new Intent(ActivityLaunchSoccer.this, ActivityLaunchGeo.class));
                 break;
@@ -154,6 +172,10 @@ public class ActivityLaunchSoccer extends AppCompatActivity implements Navigatio
         return true;
     }
 
+
+    /**
+     * saveSharedPrefs
+     */
     private void saveSharedPrefs(String stringToSave) {
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("Pass", stringToSave);

@@ -102,7 +102,10 @@ public class SoccerVideoActivity extends AppCompatActivity implements Navigation
         SoccerVideo selectedMatch = elements.get(pos);
 
         View detail_view = getLayoutInflater().inflate(R.layout.activity_soccer_detail, null);
-        //get the TextViews
+
+        /**
+         * get the TextViews
+         */
 
 
         TextView countryView = detail_view.findViewById(R.id.country);
@@ -110,7 +113,10 @@ public class SoccerVideoActivity extends AppCompatActivity implements Navigation
         TextView side1View = detail_view.findViewById(R.id.textViewA);
         TextView side2View = detail_view.findViewById(R.id.textViewB);
 
-        //set the fields for the alert dialog
+        /**
+         * set the fields for the alert dialog
+         */
+
         countryView.setText(selectedMatch.getCountry());
         dateView.setText(selectedMatch.getDate());
         side1View.setText(selectedMatch.getSide1());
@@ -120,11 +126,14 @@ public class SoccerVideoActivity extends AppCompatActivity implements Navigation
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Match Details")
-                .setView(detail_view) //add the 3 edit texts showing the contact information
+                .setView(detail_view)
                 .setNegativeButton("dismiss", (click, b) -> { })
                 .setPositiveButton("save", (click, b) -> {
                     ContentValues newRowValues = new ContentValues();
 
+                    /**
+                     * add to database
+                     */
                     newRowValues.put(SoccerMyOpener.COL_COUNTRY, selectedMatch.getCountry());
                     newRowValues.put(SoccerMyOpener.COL_TITLE, selectedMatch.getTitle());
                     newRowValues.put(SoccerMyOpener.COL_DATE, selectedMatch.getDate());
@@ -152,20 +161,29 @@ public class SoccerVideoActivity extends AppCompatActivity implements Navigation
         {
             try {
 
-                //create a URL object of what server to contact:
+                /**
+                 * create a URL object of what server to contact:
+                 */
+
 
                 URL matchUrl= new URL("https://www.scorebat.com/video-api/v1/");
 
 
-                //open the connection
+                /**
+                 * open the connection, wait for data:
+                 */
+
                 HttpURLConnection urlMatchConnection = (HttpURLConnection) matchUrl.openConnection();
 
-                //wait for data:
+
                 InputStream responseMatch = urlMatchConnection.getInputStream();
 
 
-                //JSON reading:   Look at slide 26
-                //Build the entire string response:
+
+                /**
+                 * JSON reading:  Build the entire string response:
+                 */
+
                 BufferedReader reader = new BufferedReader(new InputStreamReader(responseMatch, "UTF-8"), 8);
                 StringBuilder sb = new StringBuilder();
 
@@ -181,7 +199,10 @@ public class SoccerVideoActivity extends AppCompatActivity implements Navigation
 
 
 
-//                 convert string to JSON: Look at slide 27:
+
+                /**
+                 * convert string to JSON
+                 */
                 try {
                     JSONArray matchArray = new JSONArray(result);
                     for (int i = 0; i < matchArray.length(); i ++) {
@@ -191,7 +212,7 @@ public class SoccerVideoActivity extends AppCompatActivity implements Navigation
                     JSONObject side2Json = matchJson.getJSONObject("side1");
                     JSONObject competitionJson = matchJson.getJSONObject("competition");
 
-//                get the double associated with "value"
+
                     title = matchJson.getString("title");
                     side1 = side1Json.getString("name");
                     side2 = side2Json.getString("name");
@@ -251,10 +272,10 @@ public class SoccerVideoActivity extends AppCompatActivity implements Navigation
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         String message = null;
-        //Look at your soccer_menu XML file. Put a case for every id in that file:
+
         switch(item.getItemId())
         {
-            //what to do when the soccer_menu item is selected:
+
             case R.id.soccerMap:
                 startActivity(new Intent(SoccerVideoActivity.this, ActivityLaunchGeo.class));
                 break;
@@ -283,7 +304,7 @@ public class SoccerVideoActivity extends AppCompatActivity implements Navigation
                 builderInstruction.setTitle("Instruction")
                         .setMessage("Please first login \n" +
                                 "Select the match you are interested \n" +
-                                "You can click 'Watch your match' to checked saved matches") //add the 3 edit texts showing the contact information
+                                "You can click 'Watch your match' to checked saved matches")
                         .setNegativeButton("dismiss", (click, b) -> { })
                         .create().show();
                 break;
