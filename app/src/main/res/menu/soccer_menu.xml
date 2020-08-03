@@ -20,7 +20,7 @@
         android:title="lyrics"/>
 
     <item android:id="@+id/soccerInfoField"
-        android:title="About this project"
+        android:title="@string/soccer_about"
         app:showAsAction="never"
         android:orderInCategory="400"/> <!-- This uses showAsAction=never, so look at title= parameter -->
 

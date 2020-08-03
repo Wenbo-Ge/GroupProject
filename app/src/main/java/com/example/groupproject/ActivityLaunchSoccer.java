@@ -155,7 +155,7 @@ public class ActivityLaunchSoccer extends AppCompatActivity implements Navigatio
                         .create().show();
                 break;
             case R.id.soccerHeaderAPI:
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.scorebat.com/video-api/v1/")));
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.scorebat.com/video-api/")));
                 break;
             case R.id.soccerHeaderDonate:
                 AlertDialog.Builder builderDonate = new AlertDialog.Builder(this);
