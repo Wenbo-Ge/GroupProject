@@ -6,6 +6,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class SoccerMyOpener extends SQLiteOpenHelper {
 
+    /**
+     * column names
+     */
     protected final static String DATABASE_NAME = "VideoDB";
     protected final static int VERSION_NUM = 1;
     public final static String TABLE_NAME = "VIDEO_TABLE";
@@ -23,8 +26,11 @@ public class SoccerMyOpener extends SQLiteOpenHelper {
     }
 
 
-    //This function gets called if no database file exists.
-    //Look on your device in the /data/data/package-name/database directory.
+    /**
+     * This function gets called if no database file exists.
+     * Look on your device in the /data/data/package-name/database directory.
+     */
+
     @Override
     public void onCreate(SQLiteDatabase db)
     {

@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/soccerHeaderInstruction"
-        android:title="Instruction on this APP"
+        android:title="@string/soccer_instruction"
         android:icon="@drawable/instruction"
         android:orderInCategory="50"
         app:showAsAction="always"/>  <!-- This uses showAsAction=always, so look at icon= parameter -->
@@ -11,13 +11,13 @@
         android:icon="@drawable/api"
         android:orderInCategory="75"
         app:showAsAction="always"
-        android:title="About API"/>
+        android:title="@string/soccer_about_api"/>
 
     <item android:id="@+id/soccerHeaderDonate"
         android:icon="@drawable/donate"
         android:orderInCategory="100"
         app:showAsAction="always"
-        android:title="Donate to Project"/>
+        android:title="@string/soccer_donate"/>
 
 
 </menu>

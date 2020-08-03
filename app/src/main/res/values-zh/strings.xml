@@ -69,6 +69,7 @@
     <string name="geoCitySave">保存喜欢的城市</string>
     <string name="showOnMap">去谷歌地图</string>
 
+    <!-- Soccer-->
     <string name="soccerPassword">密码</string>
     <string name="soccerInputPassword">输入密码</string>
     <string name="soccerLogin">登录</string>
@@ -77,8 +78,15 @@
     <string name="soccerHighlights">集锦</string>
     <string name="soccer_your_match">你的最爱</string>
     <string name="soccer_title">对战</string>
-    <string name="soccer_loading">loading</string>
-
+    <string name="soccer_loading">载入</string>
+    <string name="soccer_open">开</string>
+    <string name="soccer_close">关</string>
+    <string name="soccer_about">关于</string>
+    <string name="soccer_instruction">介绍</string>
+    <string name="soccer_about_api">关于 API</string>
+    <string name="soccer_donate">打钱</string>
+    <string name="soccer_donate_generous">慷慨解囊</string>
+    <string name="soccer_quantity_donate">捐多少</string>
 
 
 </resources>

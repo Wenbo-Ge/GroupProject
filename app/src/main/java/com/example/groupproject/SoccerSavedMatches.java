@@ -40,6 +40,9 @@ public class SoccerSavedMatches extends AppCompatActivity implements NavigationV
 
     public static final String ITEM_SELECTED_HTML = "videoHTML";
 
+    /**
+     * ArrayList to store objects from database
+     */
     private ArrayList<SoccerVideo> elements = new ArrayList<>( Arrays.asList());
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +72,10 @@ public class SoccerSavedMatches extends AppCompatActivity implements NavigationV
                 });
 
         mySavedList.setOnItemClickListener((list, item, position, id) -> {
-            //Create a bundle to pass data to the new fragment
+            /**
+             * Create a bundle to pass data to the new fragment
+             */
+
             Bundle dataToPass = new Bundle();
             dataToPass.putString(ITEM_SELECTED_HTML, elements.get(position).getEmbed() );
 
@@ -85,7 +91,10 @@ public class SoccerSavedMatches extends AppCompatActivity implements NavigationV
 
         tBar = (Toolbar)findViewById(R.id.toolbar);
 
-        //This loads the toolbar, which calls onCreateOptionsMenu below:
+        /**
+         * This loads the toolbar, which calls onCreateOptionsMenu below:
+         */
+
         setSupportActionBar(tBar);
 
         //For NavigationDrawer:
@@ -122,6 +131,9 @@ public class SoccerSavedMatches extends AppCompatActivity implements NavigationV
         int idColIndex = results.getColumnIndex(SoccerMyOpener.COL_ID);
 
 
+        /**
+         * loop database row to add item to arrayList
+         */
         while(results.moveToNext())
         {
             String country = results.getString(countryColumnIndex);
@@ -223,7 +235,7 @@ public class SoccerSavedMatches extends AppCompatActivity implements NavigationV
                         .create().show();
                 break;
             case R.id.soccerHeaderAPI:
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.scorebat.com/video-api/v1/")));
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.scorebat.com/video-api/")));
                 break;
             case R.id.soccerHeaderDonate:
                 AlertDialog.Builder builderDonate = new AlertDialog.Builder(this);
