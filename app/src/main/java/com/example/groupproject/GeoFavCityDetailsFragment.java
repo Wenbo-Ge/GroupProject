@@ -46,7 +46,9 @@ public class GeoFavCityDetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View result = inflater.inflate(R.layout.fragment_geo_city_details, container, false);
+        View result = inflater.inflate(R.layout.fragment_geo_fav_city_details, container, false);
+
+        loadDataFromDatabase();
 
         TextView country = (TextView)result.findViewById(R.id.country);
         country.setText(cityList.get(index).getCountry());
@@ -71,21 +73,65 @@ public class GeoFavCityDetailsFragment extends Fragment {
         Button rmButton = (Button)result.findViewById(R.id.rmFromFav);
         rmButton.setOnClickListener(bt -> {
             openDB();
-            /*
-            ContentValues newRow = new ContentValues();
-            newRow.put(GeoCityDBOpener.COL_COUNTRY, cityList.get(index).getCountry());
-            newRow.put(GeoCityDBOpener.COL_REGION, cityList.get(index).getRegion());
-            newRow.put(GeoCityDBOpener.COL_CITY, cityList.get(index).getCity());
-            newRow.put(GeoCityDBOpener.COL_LATITUDE, cityList.get(index).getLatitude());
-            newRow.put(GeoCityDBOpener.COL_LONGITUDE, cityList.get(index).getLongitude());
-            newRow.put(GeoCityDBOpener.COL_CURRENCY, cityList.get(index).getCurrency());
-*/
-//            long newId = db.delete(GeoCityDBOpener.TABLE_NAME, ""cityList.get(index).getCity(), null);
-//            Log.i(GEO_FAV_CITY_FRAGMENT, "newId: " + newId);
-            Toast.makeText(getContext(), "Deleted", Toast.LENGTH_SHORT).show();
+
+            Log.i(GEO_FAV_CITY_FRAGMENT, "index: " + index);
+            Log.i(GEO_FAV_CITY_FRAGMENT, "_id: " + cityList.get(index).getId());
+            long newId = db.delete(GeoCityDBOpener.TABLE_NAME, "_id=" + cityList.get(index).getId(), null);
+            cityList.remove(index);
+            Log.i(GEO_FAV_CITY_FRAGMENT, "row affected: " + newId);
+//            GeoCitySearchResult.cityListAdaptor.notifyDataSetChanged();
+            Toast.makeText(getContext(), R.string.geoDeleted, Toast.LENGTH_SHORT).show();
         });
 
         return result;
+    }
+
+    private void loadDataFromDatabase() {
+        cityList.clear();
+        GeoCityDBOpener dbOpener = new GeoCityDBOpener(getContext());
+        db = dbOpener.getWritableDatabase();
+
+        // Get all the columns of the table
+        String [] columns = {GeoCityDBOpener.COL_ID, GeoCityDBOpener.COL_COUNTRY,
+                GeoCityDBOpener.COL_REGION, GeoCityDBOpener.COL_CITY, GeoCityDBOpener.COL_LATITUDE,
+                GeoCityDBOpener.COL_LONGITUDE, GeoCityDBOpener.COL_CURRENCY};
+        // Query all the results from the table
+        Cursor results = db.query(false, dbOpener.TABLE_NAME, columns, null, null, null, null, null, null);
+        printCursor(results, db.getVersion());
+
+        int idColIndex = results.getColumnIndex(dbOpener.COL_ID);
+        int countryColIndex = results.getColumnIndex(dbOpener.COL_COUNTRY);
+        int regionColIndex = results.getColumnIndex(dbOpener.COL_REGION);
+        int cityColIndex = results.getColumnIndex(dbOpener.COL_CITY);
+        int latColIndex = results.getColumnIndex(dbOpener.COL_LATITUDE);
+        int lngColIndex = results.getColumnIndex(dbOpener.COL_LONGITUDE);
+        int currencyColIndex = results.getColumnIndex(dbOpener.COL_CURRENCY);
+
+        if(results.isFirst()) {
+            do {
+                long id = results.getLong(idColIndex);
+                String country = results.getString(countryColIndex);
+                String region = results.getString(regionColIndex);
+                String city = results.getString(cityColIndex);
+                String lat = results.getString(latColIndex);
+                String lng = results.getString(lngColIndex);
+                String currency = results.getString(currencyColIndex);
+
+                cityList.add(new GeoCity(id, country, region, city, lat, lng, currency));
+            } while (results.moveToNext());
+        }
+
+        Log.i(GEO_FAV_CITY_FRAGMENT, "size is: " + cityList.size());
+        for(int i = 0; i < cityList.size() ; i++) {
+            Log.i(GEO_FAV_CITY_FRAGMENT, "" +
+                    cityList.get(i).getId() + " " +
+                    cityList.get(i).getCountry() + " " +
+                    cityList.get(i).getRegion() + " " +
+                    cityList.get(i).getCity() + " " +
+                    cityList.get(i).getLatitude() + " " +
+                    cityList.get(i).getLongitude() + " " +
+                    cityList.get(i).getCurrency());
+        }
     }
 
     public void openDB() {
@@ -98,7 +144,7 @@ public class GeoFavCityDetailsFragment extends Fragment {
                 GeoCityDBOpener.COL_LONGITUDE, GeoCityDBOpener.COL_CURRENCY};
         // Query all the results from the table
         Cursor results = db.query(false, GeoCityDBOpener.TABLE_NAME, columns, null, null, null, null, null, null);
-        printCursor(results, db.getVersion());
+//        printCursor(results, db.getVersion());
     }
 
     private void printCursor(Cursor c, int version) {

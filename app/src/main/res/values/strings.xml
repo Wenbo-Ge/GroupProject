@@ -36,7 +36,26 @@
     <string name="geoNavBtn">Back</string>
     <string name="geoCitySave">Save as Favorite</string>
     <string name="showOnMap">Show on Google Map</string>
-     <!-- TODO: Remove or change this placeholder text -->
+    <string name="geoAbout">About this project</string>
+    <string name="geoAboutProject">This is Geo Data Source activity written by Xiao Yu</string>
+    <string name="geoNavDrawerClose">Close</string>
+    <string name="geoNavDrawerOpen">Open</string>
+    <string name="geoNavInstructionsStr">Instructions for this App</string>
+    <string name="geoNavAboutAPIStr">About the API</string>
+    <string name="geoNavDonateStr">Donate to Project</string>
+    <string name="geoInstructionTitle">Instructions</string>
+    <string name="geoInstructionDetails">- Use this app to search for nearby cities of a specific latitude and longitude.\n- Click on a nearby city to view its details including country, region, latitude, longitude and currency.\n- You can save a city to you favorite cities list, and view your all your saved favorite cities.\n- You can also remove a saved favorite city by entering the favorite city detail view and click on the remove button</string>
+    <string name="geoBackBtn">Back</string>
+    <string name="geoDonateTitle">Please give generously</string>
+    <string name="geoDonateDetails">How much money do you want to donate?</string>
+    <string name="geoThankYouBtn">Thank You</string>
+    <string name="geoCancelBtn">Cancel</string>
+    <string name="geoDonateDefault">$$$</string>>
+    <string name="geoSaved">Saved</string>>
+    <string name="geoDeleted">Deleted</string>>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- Song Lyrics Search -->

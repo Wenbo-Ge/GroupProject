@@ -4,10 +4,21 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class GeoCity implements Parcelable {
+    protected long id;
     protected String country, region, city, latitude, longitude, currency;
     protected int index;
 
     public GeoCity (String country, String region, String city, String latitude, String longitude, String currency) {
+        this.country = country;
+        this.region = region;
+        this.city = city;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.currency = currency;
+    }
+
+    public GeoCity (long id, String country, String region, String city, String latitude, String longitude, String currency) {
+        this.id = id;
         this.country = country;
         this.region = region;
         this.city = city;
@@ -45,6 +56,10 @@ public class GeoCity implements Parcelable {
             return new GeoCity[size];
         }
     };
+
+    public long getId() {
+        return id;
+    }
 
     public String getCity() {
         return city;
