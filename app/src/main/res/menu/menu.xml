@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/menusoccer"
+        android:title="@string/menuSoccer"
+        android:icon="@drawable/barca"
+        android:orderInCategory="100"
+        app:showAsAction="always"/>
+
+
+    <item android:id="@+id/menuGeo"
+        android:orderInCategory="50"
+        android:icon="@drawable/earth"
+        app:showAsAction="always"
+        android:title="@string/menuGeo"/>
+
+    <item android:id="@+id/menuLyrics"
+        android:orderInCategory="50"
+        android:icon="@drawable/song"
+        app:showAsAction="always"
+        android:title="@string/menuLyrics"/>
+
+    <item android:id="@+id/menuAbout"
+        android:title="@string/menuabout"
+        app:showAsAction="never"
+        android:orderInCategory="400"/>
+
+</menu>
