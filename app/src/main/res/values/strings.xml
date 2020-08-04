@@ -1,14 +1,42 @@
 <resources>
     <string name="app_name">GroupProject</string>
     <string name="artistName">Artist or Group\'s Name</string>
-    <string name="hintMessage">Please Enter an Artist or Group\'s Name</string>
+    <string name="hintMessageSearchSinger">Artist Name</string>
     <string name="searchSinger">Search</string>
     <string name="loadHint">Loading....</string>
     <string name="saveButton">Save</string>
-    <string name="favourButton">Your Favourites</string>
     <string name="title">Title:</string>
     <string name="duration">Duration:</string>
     <string name="albumName">AlbumName</string>
     <string name="albumCover">AlbumCover</string>
     <string name="saveAlbumDetails">Save Details</string>
+    <string name="goToFavouritesButtonText">Favourites</string>
+    <string name="SongFavourites">SongFavourites</string>
+    <string name="toast_message1">Please Enter a name!!!</string>
+    <string name="toast_message2">Incorrect format!!!</string>
+    <string name="add">Add</string>
+    <string name="deleteFavourite">Remove</string>
+    <string name="FavouriteSongs">FavouriteList</string>
+    <string name="addTittle">Do you want to add this song as favourite</string>
+    <string name="addMessage1">The selected row is:</string>
+    <string name="addMessage2">The selected id:</string>
+    <string name="yesBtn">YES</string>
+    <string name="noBtn">NO</string>
+    <string name="navdrawerClose">Close</string>
+    <string name="navdrawerOpen">Open</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="deezerNavInstruction">Instruction</string>
+    <string name="navAboutItem">About Us</string>
+    <string name="menuSoccer">Soccer</string>
+    <string name="menuGeo">Geo</string>
+    <string name="menuDeezer">Deezer</string>
+    <string name="menuabout">About Us</string>
+    <string name="menuLyrics">Lyrics</string>
+    <string name="navInstructionItem">Instruction</string>
+    <string name="navAbout">About Us</string>
+    <string name="navDonate">Donate</string>
+    <string name="alertHelp">Instructions</string>
+    <string name="alertHelpText">Enter artist/band name</string>
+    <string name="buttonAlertOk">OK</string>
 </resources>
