@@ -1,6 +1,5 @@
 package com.example.groupproject;
 
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
@@ -75,12 +74,10 @@ public class ActivityLaunchSinger extends AppCompatActivity implements Navigatio
     private Intent ActivityLaunchSinger;
     DrawerLayout drawer;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch_singer);
-
 
         boolean isTablet = findViewById(R.id.fragmentLayout) != null;
         listView = findViewById(R.id.songListView);
@@ -94,9 +91,9 @@ public class ActivityLaunchSinger extends AppCompatActivity implements Navigatio
         editText.setText(editText.getText().toString());
 
         Toolbar toolbar=findViewById(R.id.toolbarLaunch);
-         setSupportActionBar(toolbar);
+        setSupportActionBar(toolbar);
 
-         DrawerLayout drawer = findViewById(R.id.drawerLayout);
+        DrawerLayout drawer = findViewById(R.id.drawerLayout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
                 drawer, toolbar, R.string.navdrawerOpen, R.string.navdrawerClose);
         drawer.addDrawerListener(toggle);
@@ -104,11 +101,6 @@ public class ActivityLaunchSinger extends AppCompatActivity implements Navigatio
 
         NavigationView navigationView = findViewById(R.id.navView);
         navigationView.setNavigationItemSelectedListener(this);
-
-
-        Button searchButton;
-        EditText searchField= null;
-
 
 
 
@@ -142,7 +134,7 @@ public class ActivityLaunchSinger extends AppCompatActivity implements Navigatio
         favourButton.setOnClickListener(v -> {
             Intent goToFavour=new Intent(ActivityLaunchSinger.this, FavouriteSong.class);
             startActivity(goToFavour);
-                });
+        });
 
         listView.setOnItemClickListener((list, item, position, id) -> {
             //Create a bundle to pass data to the new fragment
@@ -196,15 +188,15 @@ public class ActivityLaunchSinger extends AppCompatActivity implements Navigatio
         String message = null;
         switch(item.getItemId())
         {
-//            case R.id.menuGeo:
-//                startActivity(new Intent(ActivityLaunchSinger.this, ActivityLaunchGeo.class));
-//                break;
-//            case R.id.menusoccer:
-//                startActivity(new Intent(ActivityLaunchSinger.this, ActivityLaunchSoccer.class));
-//                break;
-//            case R.id.menuLyrics:
-//                startActivity(new Intent(ActivityLaunchSinger.this, ActivityLaunchLyrics.class));
-//                break;
+            case R.id.menuGeo:
+                startActivity(new Intent(ActivityLaunchSinger.this, ActivityLaunchGeo.class));
+                break;
+            case R.id.menusoccer:
+                startActivity(new Intent(ActivityLaunchSinger.this, ActivityLaunchSoccer.class));
+                break;
+            case R.id.menuLyrics:
+                startActivity(new Intent(ActivityLaunchSinger.this, ActivityLaunchLyrics.class));
+                break;
             case R.id.menuAbout:
                 message = "This is the Singer activity, written by Lifeng Yao";
                 Toast.makeText(this, message, Toast.LENGTH_LONG).show();
@@ -439,5 +431,3 @@ public class ActivityLaunchSinger extends AppCompatActivity implements Navigatio
 
 
 }
-
-

@@ -44,9 +44,9 @@
     <string name="buttonAlertOk">OK</string>
 
 
-    <string name="menuSoccer">Soccer</string>
-    <string name="menuGeo">City Finder</string>
-    <string name="menuDeezer">Deezer</string>
+<!--    <string name="menuSoccer">Soccer</string>-->
+<!--    <string name="menuGeo">City Finder</string>-->
+<!--    <string name="menuDeezer">Deezer</string>-->
     <string name="menuLS">Lyrics Search</string>
 
     <!-- Soccer -->
@@ -61,7 +61,7 @@
     <string name="soccer_open">Open</string>
     <string name="soccer_close">Close</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="soccer_hello_blank_fragment">Hello blank fragment</string>
+<!--    <string name="soccer_hello_blank_fragment">Hello blank fragment</string>-->
     <string name="soccerHighlights">Highlights</string>
     <string name="soccer_about">About this project</string>
     <string name="soccer_instruction">Instruction</string>
@@ -107,7 +107,7 @@
 
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+<!--    <string name="hello_blank_fragment">Hello blank fragment</string>-->
 
     <!-- Song Lyrics Search -->
     <string name="textViewLSTitle">Song Title</string>

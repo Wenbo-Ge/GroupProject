@@ -1,6 +1,4 @@
-
 <?xml version="1.0" encoding="UTF-8"?>
-
 <LinearLayout
     tools:context=".ActivityLaunchSinger"
     android:layout_height="match_parent"
@@ -11,14 +9,14 @@
 
 
 
-        <androidx.appcompat.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/toolbarLaunch"
-            android:background="@color/colorAccent"
-            app:titleTextColor="@color/cardview_light_background"
-            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
-            app:title="DeezerSong" />
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/toolbarLaunch"
+        android:background="@color/colorAccent"
+        app:titleTextColor="@color/cardview_light_background"
+        android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
+        app:title="DeezerSong" />
 
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/drawerLayout"
@@ -30,18 +28,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-        <ImageView
-            android:id="@+id/searchSingerImage"
-            android:layout_width="match_parent"
-            android:layout_height="181dp"
-            android:layout_gravity="top"
-            android:src="@drawable/search_singer" />
+            <ImageView
+                android:id="@+id/searchSingerImage"
+                android:layout_width="match_parent"
+                android:layout_height="181dp"
+                android:layout_gravity="top"
+                android:src="@drawable/search_singer" />
 
-        <LinearLayout
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="1">
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="1">
 
                 <ListView
                     android:id="@+id/songListView"
@@ -52,39 +50,39 @@
                 </ListView>
 
 
-        </LinearLayout>
+            </LinearLayout>
 
 
-        <LinearLayout
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/searchSingerButtonText"
-                android:layout_width="101dp"
-                android:layout_height="84dp"
-                android:layout_gravity="left"
-                android:text="@string/searchSinger" />
-
-            <EditText
-                android:id="@+id/searchSingerHintMessage"
-                android:layout_width="160dp"
+            <LinearLayout
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center|left"
-                android:hint="@string/hintMessageSearchSinger"
-                android:inputType="textPersonName"
-                android:textSize="14sp" />
+                android:layout_width="match_parent"
+                android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/FavoritesButtonText"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="right"
-                android:text="@string/goToFavouritesButtonText" />
+                <Button
+                    android:id="@+id/searchSingerButtonText"
+                    android:layout_width="101dp"
+                    android:layout_height="84dp"
+                    android:layout_gravity="left"
+                    android:text="@string/searchSinger" />
 
-        </LinearLayout>
+                <EditText
+                    android:id="@+id/searchSingerHintMessage"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center|left"
+                    android:hint="@string/hintMessageSearchSinger"
+                    android:inputType="textPersonName"
+                    android:textSize="14sp" />
+
+                <Button
+                    android:id="@+id/FavoritesButtonText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:text="@string/goToFavouritesButtonText" />
+
+            </LinearLayout>
         </LinearLayout>
 
         <ProgressBar
@@ -111,5 +109,3 @@
     </androidx.drawerlayout.widget.DrawerLayout>
 
 </LinearLayout>
-
-
