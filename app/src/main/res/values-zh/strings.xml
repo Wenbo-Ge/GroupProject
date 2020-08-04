@@ -68,6 +68,23 @@
     <string name="geoNavBtn">返回</string>
     <string name="geoCitySave">保存喜欢的城市</string>
     <string name="showOnMap">去谷歌地图</string>
+    <string name="geoAbout">关于项目</string>
+    <string name="geoAboutProject">于潇出品</string>
+    <string name="geoNavDrawerClose">关闭</string>
+    <string name="geoNavDrawerOpen">打开</string>
+    <string name="geoNavInstructionsStr">项目简介</string>
+    <string name="geoNavAboutAPIStr">关于项目</string>
+    <string name="geoNavDonateStr">捐赠此项目</string>
+    <string name="geoBackBtn">返回</string>
+    <string name="geoDonateTitle">请慷慨相助</string>
+    <string name="geoDonateDetails">您想赞助几张大钞？</string>
+    <string name="geoThankYouBtn">万分感谢</string>
+    <string name="geoCancelBtn">遗憾离场</string>
+    <string name="geoDonateDefault">￥￥￥</string>
+    <string name="geoInstructionTitle">项目指南</string>
+    <string name="geoInstructionDetails">此项目用来查找城市。-点击搜索附近城市，就可以看到城市所在国家，地区，经度，纬度和流通货币。 -您可以将此城市保存为心仪城市。之后在心仪城市列表下查看。</string>
+    <string name="geoSaved">已保存</string>
+    <string name="geoDeleted">已删除</string>
 
     <!-- Soccer-->
     <string name="soccerPassword">密码</string>
@@ -78,6 +95,7 @@
     <string name="soccerHighlights">集锦</string>
     <string name="soccer_your_match">你的最爱</string>
     <string name="soccer_title">对战</string>
+    <string name="soccer_loading">loading</string>
     <string name="soccer_loading">载入</string>
     <string name="soccer_open">开</string>
     <string name="soccer_close">关</string>
@@ -87,6 +105,7 @@
     <string name="soccer_donate">打钱</string>
     <string name="soccer_donate_generous">慷慨解囊</string>
     <string name="soccer_quantity_donate">捐多少</string>
+
 
 
 </resources>

@@ -1,6 +1,7 @@
 package com.example.groupproject;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
@@ -31,7 +32,7 @@ public class GeoFavCityDetailsView extends AppCompatActivity {
         if(bundle.get("favCityList") != null) {
             cityList = bundle.getParcelableArrayList("favCityList");
         }
-/*
+
         GeoFavCityDetailsFragment dFragment = new GeoFavCityDetailsFragment();
         dFragment.setPosition(GeoCitySearchResult.getCityIndex());
         dFragment.setArguments(cityList);
@@ -40,6 +41,6 @@ public class GeoFavCityDetailsView extends AppCompatActivity {
                 .beginTransaction()
                 .replace(R.id.fragmentLocation, dFragment)
                 .commit();
-     */
+
     }
 }

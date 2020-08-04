@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <item android:id="@+id/geoNavInstructions"
+            android:title="@string/geoNavInstructionsStr" />
+
+        <item android:id="@+id/geoNavAboutAPI"
+            android:title="@string/geoNavAboutAPIStr" />
+
+        <item android:id="@+id/geoNavDonate"
+            android:title="@string/geoNavDonateStr" />
+
+</menu>

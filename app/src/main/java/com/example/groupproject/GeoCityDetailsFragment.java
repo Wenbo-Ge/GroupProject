@@ -82,7 +82,7 @@ public class GeoCityDetailsFragment extends Fragment {
 
             long newId = db.insert(GeoCityDBOpener.TABLE_NAME, null, newRow);
             Log.i(GEO_CITY_FRAGMENT, "newId: " + newId);
-            Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(),R.string.geoSaved, Toast.LENGTH_SHORT).show();
         });
 
         Button mapButton = (Button)result.findViewById(R.id.showOnMap);
