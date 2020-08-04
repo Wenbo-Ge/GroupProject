@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/soccerMap"
+        android:title="Instructions for this app"
+        android:icon="@drawable/map"
+        android:orderInCategory="100"
+        app:showAsAction="always"/>  <!-- This uses showAsAction=always, so look at icon= parameter -->
+
+    <item android:id="@+id/soccerSong"
+        android:icon="@drawable/song"
+        android:orderInCategory="75"
+        app:showAsAction="always"
+        android:title="song"/>
+
+    <item android:id="@+id/soccerLyrics"
+        android:icon="@drawable/info"
+        android:orderInCategory="50"
+        app:showAsAction="always"
+        android:title="lyrics"/>
+
+    <item android:id="@+id/soccerInfoField"
+        android:title="@string/soccer_about"
+        app:showAsAction="never"
+        android:orderInCategory="400"/> <!-- This uses showAsAction=never, so look at title= parameter -->
+
+</menu>

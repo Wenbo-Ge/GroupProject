@@ -1,5 +1,6 @@
 package com.example.groupproject;
 
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
@@ -74,10 +75,12 @@ public class ActivityLaunchSinger extends AppCompatActivity implements Navigatio
     private Intent ActivityLaunchSinger;
     DrawerLayout drawer;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch_singer);
+
 
         boolean isTablet = findViewById(R.id.fragmentLayout) != null;
         listView = findViewById(R.id.songListView);
@@ -101,6 +104,11 @@ public class ActivityLaunchSinger extends AppCompatActivity implements Navigatio
 
         NavigationView navigationView = findViewById(R.id.navView);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+        Button searchButton;
+        EditText searchField= null;
+
 
 
 
@@ -431,6 +439,5 @@ public class ActivityLaunchSinger extends AppCompatActivity implements Navigatio
 
 
 }
-
 
 

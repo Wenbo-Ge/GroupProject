@@ -1,5 +1,7 @@
 <resources>
+    <!-- Main Page -->
     <string name="app_name">GroupProject</string>
+
     <string name="artistName">Artist or Group\'s Name</string>
     <string name="hintMessageSearchSinger">Artist Name</string>
     <string name="searchSinger">Search</string>
@@ -10,6 +12,7 @@
     <string name="albumName">AlbumName</string>
     <string name="albumCover">AlbumCover</string>
     <string name="saveAlbumDetails">Save Details</string>
+
     <string name="goToFavouritesButtonText">Favourites</string>
     <string name="SongFavourites">SongFavourites</string>
     <string name="toast_message1">Please Enter a name!!!</string>
@@ -39,4 +42,114 @@
     <string name="alertHelp">Instructions</string>
     <string name="alertHelpText">Enter artist/band name</string>
     <string name="buttonAlertOk">OK</string>
+
+
+    <string name="menuSoccer">Soccer</string>
+    <string name="menuGeo">City Finder</string>
+    <string name="menuDeezer">Deezer</string>
+    <string name="menuLS">Lyrics Search</string>
+
+    <!-- Soccer -->
+    <string name="soccerPassword">Password</string>
+    <string name="soccerInputPassword">Please input password</string>
+    <string name="soccerLogin">Login</string>
+    <string name="soccerWatch">Watch Highlights</string>
+    <string name="soccerSave">Save</string>
+    <string name="soccer_your_match">Your match</string>
+    <string name="soccer_title">title</string>
+    <string name="soccer_loading">loading</string>
+    <string name="soccer_open">Open</string>
+    <string name="soccer_close">Close</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="soccer_hello_blank_fragment">Hello blank fragment</string>
+    <string name="soccerHighlights">Highlights</string>
+    <string name="soccer_about">About this project</string>
+    <string name="soccer_instruction">Instruction</string>
+    <string name="soccer_about_api">about API</string>
+    <string name="soccer_donate">Donate this project</string>
+    <string name="soccer_donate_generous">Donate generous</string>
+    <string name="soccer_quantity_donate">How much do you donate?</string>
+
+    <!-- Geo Data Source -->
+    <string name="geoWelcome">Welcome to Geo Data Source</string>
+    <string name="geoLatLong">Enter latitude and longitude to find out the nearby cities:</string>
+    <string name="geoLat">Type latitude here</string>
+    <string name="geoLong">Type longitude here</string>
+    <string name="geoSearch">SEARCH</string>
+    <string name="geoFav">SHOW FAVORITE CITIES</string>
+    <string name="geoHelp">HELP</string>
+    <string name="gotoMap">HELP</string>
+    <string name="geoFavCity">Favorite Cities</string>
+    <string name="geoRemoveFav">Remove from Favorites</string>
+    <string name="geoHelpMsg">Type in a latitude e.g. 45.424721, a longitude e.g. -75.695000 (City of Ottawa) to find out its nearby cities</string>
+    <string name="geoTips">Tips:</string>
+    <string name="geoBack">Back to Geo</string>
+    <string name="geoNavBtn">Back</string>
+    <string name="geoCitySave">Save as Favorite</string>
+    <string name="showOnMap">Show on Google Map</string>
+    <string name="geoAbout">About this project</string>
+    <string name="geoAboutProject">This is Geo Data Source activity written by Xiao Yu</string>
+    <string name="geoNavDrawerClose">Close</string>
+    <string name="geoNavDrawerOpen">Open</string>
+    <string name="geoNavInstructionsStr">Instructions for this App</string>
+    <string name="geoNavAboutAPIStr">About the API</string>
+    <string name="geoNavDonateStr">Donate to Project</string>
+    <string name="geoInstructionTitle">Instructions</string>
+    <string name="geoInstructionDetails">- Use this app to search for nearby cities of a specific latitude and longitude.\n- Click on a nearby city to view its details including country, region, latitude, longitude and currency.\n- You can save a city to you favorite cities list, and view your all your saved favorite cities.\n- You can also remove a saved favorite city by entering the favorite city detail view and click on the remove button</string>
+    <string name="geoBackBtn">Back</string>
+    <string name="geoDonateTitle">Please give generously</string>
+    <string name="geoDonateDetails">How much money do you want to donate?</string>
+    <string name="geoThankYouBtn">Thank You</string>
+    <string name="geoCancelBtn">Cancel</string>
+    <string name="geoDonateDefault">$$$</string>>
+    <string name="geoSaved">Saved</string>>
+    <string name="geoDeleted">Deleted</string>>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Song Lyrics Search -->
+    <string name="textViewLSTitle">Song Title</string>
+    <string name="textViewLSArtist">Artist/Band Name</string>
+    <string name="textEditLSArtist">e.g. Police</string>
+    <string name="buttonLSSearch">Search</string>
+    <string name="textViewLSHeading">Lyrics Search</string>
+    <string name="textEditLSTitle">e.g. Roxanne</string>
+    <string name="textViewLSFavorite">Favorites</string>
+    <string name="buttonLSWebSearch">Google</string>
+    <string name="toastLSInvalidInput">Please fill in both artist/band name and song title</string>
+    <string name="snackbarLSFavoriteOn">Added to the favorite list</string>
+    <string name="snackbarLSFavoriteOff">Removed from the favorite list</string>
+    <string name="snackbarLSFavoriteUndo">Undo</string>
+    <string name="alertTitleLSFavList">Do you want to remove this song from the favorite list?</string>
+    <string name="buttonLSAlertYes">Yes</string>
+    <string name="buttonLSAlertNo">No</string>
+
+    <string name="checkboxLSLastSearch">Load last search</string>
+    <string name="toastLSNotFound">Lyrics not found</string>
+    <string name="menuLSabout">About this project</string>
+    <string name="LSabout">This is the lyrics search activity, written by Mei Gao</string>
+    <string name="LSnavdrawerClose">Close</string>
+    <string name="LSnavdrawerOpen">Open</string>
+    <string name="LSnavInstructionItem">Instructions for this app</string>
+    <string name="LSnavAboutItem">About the API</string>
+    <string name="LSnavDonateItem">Donate to Project</string>
+    <string name="alertHelpTitleLS">Instructions</string>
+    <string name="alertHelpTextLS">Main View\n* Enter artist/band name and song name in the input boxes and click search button to get the lyrics\n* Check "load last search" box to redo the last search\n* You can also click any item in the favorite list to view the lyrics saved locally\n* Long click items in the favorite list will bring up a dialog for deleting the song from the list\n\nLyrics View\n* Click the heart button will add/remove the song into/from the favorite list\n* Click the google button will bring up the google search page for the song
+    </string>
+    
+    <string name="buttonLSAlertOk">OK</string>
+    <string name="alertDonateTitleLS">Please give generou$ly</string>
+    <string name="alertDonateMessageLS">How much money do you want to donate?</string>
+    <string name="buttonLSAlertThankYou">Thank you</string>
+    <string name="buttonLSAlertCancel">cancel</string>
+    <string name="textEditDonateLS">$$$</string>
+
+
+
+    <!-- Deezer song search api -->
+
+
+
 </resources>

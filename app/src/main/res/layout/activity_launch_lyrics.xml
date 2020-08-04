@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ActivityLaunchLyrics">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/toolbarLSLaunch"/>
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/LSdrawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:openDrawer="start">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="53dp"
+            android:text="@string/textViewLSHeading"
+            android:gravity="center"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/microphone"/>
+
+            <EditText
+                android:id="@+id/editTextLSArtist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="fill_horizontal"
+                android:hint="@string/textEditLSArtist"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/sing"/>
+
+
+            <EditText
+                android:id="@+id/editTextLSTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="fill_horizontal"
+                android:inputType="textEmailAddress"
+                android:hint="@string/textEditLSTitle"/>
+
+        </LinearLayout>
+
+        <CheckBox
+            android:id="@+id/checkboxLSLastSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/checkboxLSLastSearch" />
+
+        <Button
+            android:id="@+id/buttonLSSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/buttonLSSearch" />
+
+        <ProgressBar
+            android:id="@+id/progressBarLSSearch"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:visibility="invisible" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="53dp"
+            android:text="@string/textViewLSFavorite"
+            android:gravity="center"
+            android:textSize="18sp" />
+
+
+        <ListView
+            android:id="@+id/listViewLSFavorites"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:dividerHeight="2px"/>
+        </LinearLayout>
+
+        <!-- THIS IS WHAT IS WHAT POPS OUT FROM THE SIDE:-->
+        <com.google.android.material.navigation.NavigationView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:fitsSystemWindows="true"
+            app:menu="@menu/lyrics_search_nav_drawer_menu"
+            android:id="@+id/navViewLS"/>
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+
+
+</LinearLayout>
+
+
+
+
+
+
