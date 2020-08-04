@@ -1,5 +1,8 @@
 package com.example.groupproject;
 
+/**
+ * SoccerVideo class
+ */
 public class SoccerVideo {
     protected String country;
     protected String title;
