@@ -29,17 +29,14 @@
     <string name="navdrawerOpen">打开</string>
     <string name="deezerNavInstruction">简介说明</string>
     <string name="navAboutItem">About Us</string>
-<!--    <string name="menuSoccer">Soccer</string>-->
-<!--    <string name="menuGeo">Geo</string>-->
-<!--    <string name="menuDeezer">Deezer</string>-->
-    <string name="menuabout">About Us</string>
-    <string name="menuLyrics">Lyrics</string>
-    <string name="navInstructionItem">Instruction</string>
-    <string name="navAbout">About Us</string>
-    <string name="navDonate">Donate</string>
-    <string name="alertHelp">Instructions</string>
-    <string name="alertHelpText">Enter artist/band name</string>
-    <string name="buttonAlertOk">OK</string>
+    <string name="menuabout">关于我们</string>
+    <string name="menuLyrics">歌词</string>
+    <string name="navInstructionItem">简单说明</string>
+    <string name="navAbout">关于我们</string>
+    <string name="navDonate">捐赠</string>
+    <string name="alertHelp">简单说明</string>
+    <string name="alertHelpText">输入歌手或组合名</string>
+    <string name="buttonAlertOk">确认</string>
 
 
     <string name="app_name">小组项目</string>
