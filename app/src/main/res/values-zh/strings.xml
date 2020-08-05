@@ -28,7 +28,7 @@
     <string name="navdrawerClose">关上</string>
     <string name="navdrawerOpen">打开</string>
     <string name="deezerNavInstruction">简介说明</string>
-    <string name="navAboutItem">About Us</string>
+    <string name="navAboutItem">关于我们</string>
     <string name="menuabout">关于我们</string>
     <string name="menuLyrics">歌词</string>
     <string name="navInstructionItem">简单说明</string>
@@ -70,7 +70,7 @@
     <string name="LSnavAboutItem">关于应用接口</string>
     <string name="LSnavDonateItem">捐赠</string>
     <string name="alertHelpTitleLS">说明</string>
-    <string name="alertHelpTextLS">help text</string>
+    <string name="alertHelpTextLS">帮助</string>
     <string name="buttonLSAlertOk">好的</string>
     <string name="alertDonateTitleLS">请慷慨捐助</string>
     <string name="alertDonateMessageLS">您要捐赠多少？</string>
