@@ -298,7 +298,7 @@ public class ActivityLaunchLyrics extends AppCompatActivity implements Navigatio
                 artist = capitalize(args[0]);
                 title = capitalize(args[1]);
                 //create a URL object of what server to contact:
-                URL url = new URL("https://api.lyrics.ovh/v1/" + URLEncoder.encode(artist, "utf-8" )  + "/" + URLEncoder.encode(title, "utf-8"));
+                URL url = new URL("https://api.lyrics.ovh/v1/" + android.net.Uri.encode(artist, "utf-8" )  + "/" + android.net.Uri.encode(title, "utf-8"));
                 //open the connection
                 urlConnection = (HttpURLConnection) url.openConnection();
 

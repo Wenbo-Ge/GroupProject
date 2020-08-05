@@ -52,7 +52,7 @@ public class LyricsResultFragment extends Fragment {
         tv = result.findViewById(R.id.textViewLSArtist);
         tv.setText(artist);
         tv = result.findViewById(R.id.textViewLSLyrics);
-        tv.setText(lyrics);
+        tv.setText("\n" + lyrics);
 
 
         ToggleButton favorite = result.findViewById(R.id.toggleButtonLSFavorite);
