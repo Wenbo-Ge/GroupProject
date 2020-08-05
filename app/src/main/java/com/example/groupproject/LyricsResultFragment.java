@@ -31,6 +31,7 @@ public class LyricsResultFragment extends Fragment {
     private AppCompatActivity parentActivity;
     private LyricsResult lr;
     private SQLiteDatabase db;
+    // this is to pass the favourite state of the song back to the previous activity
     Intent returnIntent = new Intent();
 
     @Override
