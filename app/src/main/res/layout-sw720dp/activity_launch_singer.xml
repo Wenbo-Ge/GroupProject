@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    tools:context=".ActivityLaunchSinger"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools" xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/searchSingerImage"
+            android:layout_width="match_parent"
+            android:layout_height="181dp"
+            android:layout_gravity="top"
+            android:src="@drawable/search_singer" />
+
+        <RelativeLayout
+            android:id="@+id/leftSide"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+                <ListView
+                    android:id="@+id/songListView"
+                    android:layout_width="350dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"/>
+
+
+                <FrameLayout
+                    android:id="@+id/fragmentLayout"
+                    android:layout_toRightOf="@id/songListView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
+
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/searchSingerButtonText"
+                android:layout_width="101dp"
+                android:layout_height="84dp"
+                android:layout_gravity="left"
+                android:text="@string/searchSinger" />
+
+            <EditText
+                android:id="@+id/searchSingerHintMessage"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center|left"
+                android:hint="@string/hintMessageSearchSinger"
+                android:inputType="textPersonName"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/FavoritesButtonText"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="right"
+                android:text="@string/goToFavouritesButtonText" />
+
+
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="278dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="10dp"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
