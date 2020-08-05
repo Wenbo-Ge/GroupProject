@@ -226,6 +226,7 @@ public class ActivityLaunchLyrics extends AppCompatActivity implements Navigatio
         search.setEnabled(true);
     }
 
+    // transit to the next activity with lyrics result loaded from favourite list or async task
     private void openResult(LyricsResult lr) {
         Bundle dataToPass = new Bundle();
         dataToPass.putString(ARTIST, lr.getArtist());
@@ -238,6 +239,7 @@ public class ActivityLaunchLyrics extends AppCompatActivity implements Navigatio
         startActivityForResult(goToResult, REQUEST_FAVORITE_STATUS);
     }
 
+    // event handler for the search button: search lyrics locally first. if not found execute the async task
     private void executeSearch() {
         String artist = artistInput.getText().toString().trim();
         String title = titleInput.getText().toString().trim();
@@ -263,6 +265,7 @@ public class ActivityLaunchLyrics extends AppCompatActivity implements Navigatio
         }
     }
 
+    // local search, search lyrics in favourite list
     private LyricsResult localSearch(String artist, String title) {
         for (LyricsResult lr : favoriteList) {
             if (lr.getArtist().equalsIgnoreCase(artist) && lr.getTitle().equalsIgnoreCase(title)) return lr;
@@ -270,6 +273,7 @@ public class ActivityLaunchLyrics extends AppCompatActivity implements Navigatio
         return null;
     }
 
+    //Capitalize the first letter of every word in song name
     private static String capitalize(String s) {
         String words[]=s.split("\\s");
         StringBuilder sb = new StringBuilder();
@@ -281,6 +285,7 @@ public class ActivityLaunchLyrics extends AppCompatActivity implements Navigatio
         return sb.toString().trim();
     }
 
+    // async task to download/ search lyrics online
     private class LyricsSearchRequest extends AsyncTask<String, Integer, String> {
 
         private boolean success = false;
@@ -293,7 +298,7 @@ public class ActivityLaunchLyrics extends AppCompatActivity implements Navigatio
                 artist = capitalize(args[0]);
                 title = capitalize(args[1]);
                 //create a URL object of what server to contact:
-                URL url = new URL("https://api.lyrics.ovh/v1/" + URLEncoder.encode(artist, "utf-8" )  + "/" + URLEncoder.encode(title, "utf-8"));
+                URL url = new URL("https://api.lyrics.ovh/v1/" + android.net.Uri.encode(artist, "utf-8" )  + "/" + android.net.Uri.encode(title, "utf-8"));
                 //open the connection
                 urlConnection = (HttpURLConnection) url.openConnection();
 
@@ -339,6 +344,7 @@ public class ActivityLaunchLyrics extends AppCompatActivity implements Navigatio
         }
     }
 
+    // load favourite list from database on startup
     private void loadDataFromDatabase() {
         //get a database connection:
         LyricsFavoriteOpener dbOpener = new LyricsFavoriteOpener(this);
@@ -369,6 +375,7 @@ public class ActivityLaunchLyrics extends AppCompatActivity implements Navigatio
     }
 
 
+    // list adaptor for the favorite list view
     private class FavoriteListAdapter extends BaseAdapter {
 
         @Override
