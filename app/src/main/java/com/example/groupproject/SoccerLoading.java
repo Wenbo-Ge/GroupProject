@@ -18,7 +18,10 @@ public class SoccerLoading extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_soccer_loading_page);
 
-        // launch video page
+        /**
+         * launch video page
+         */
+
         goToVideo = new Intent(SoccerLoading.this, SoccerVideoActivity.class);
         pbar = findViewById(R.id.p_Bar);
 

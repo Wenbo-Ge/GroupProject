@@ -62,16 +62,25 @@ public class SoccerDetailsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        /**
+         * Inflate the layout for this fragment
+         */
+
         dataFromActivity = getArguments();
         videoHtml = dataFromActivity.getString(SoccerSavedMatches.ITEM_SELECTED_HTML );
 
-        // Inflate the layout for this fragment
+        /**
+         * Inflate the layout for this fragment
+         */
+
         View result =  inflater.inflate(R.layout.activity_soccer_fragment_details, container, false);
 
-        //show the video
+        /**
+         * show the video
+         */
+
         WebView highlight = (WebView) result.findViewById(R.id.webView);
-        highlight.loadData(videoHtml, "text/html", null);
+        highlight.loadUrl(videoHtml);
 
 
 
